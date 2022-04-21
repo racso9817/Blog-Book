@@ -1,8 +1,8 @@
 <div class="container">
+    <div></div>
 
 
-
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-5 col-xs-12 col-md-push-7">
 
             <div class="search-hero search-input-wrapper fadeInUp hidden-md hidden-lg">
@@ -27,7 +27,6 @@
                             </div>
                             <div class="title main-content">
                                 <h3 class="title">{{ i.title}}</h3>
-                                <!--   <p> {{i.desc}}</p> -->
                                 <p [innerHTML]="i.desc | noSanitize"></p>
 
                                 <div class="author-date">
@@ -63,10 +62,6 @@
             <div *ngIf="(sorted | filter:searchText) as result ">
                 <h3 class="Featured hidden-md hidden-lg">Latest Posts</h3>
                 <div *ngIf="!isFetching && result?.length>0">
-
-
-
-
                     <div class="card row" *ngFor="let i of result;let c= index ">
                         <a [routerLink]="[c]">
 
@@ -89,9 +84,6 @@
                                 </p>
                             </div>
                         </a>
-                        <!--  <div class="col-md-4 col-xs-5 img-col">
-                            <img src="{{i.imgurl}}" alt="Avatar" style="width:100%" class="img-responsive" alt="">
-                        </div -->
                     </div>
                 </div>
                 <div class="loading-text text-left no-result">
@@ -102,26 +94,6 @@
 
         </div>
 
-
-
-
-
-        <!-- <ng-template #loading>
-        <div *ngIf="isFetching && !error" class="loading-text">
-            <div class="loader"></div>
-            <p> loading Contet...</p>
-        </div>
-
-
-
-        <div *ngIf="error && !isFetching" class="error-text">
-            <h4>{{error}}</h4>
-
-        </div>
-    </ng-template>
-    <div class="col-sm-4 col-xs-12">
-    </div> -->
-
         <div *ngIf="isFetching && !error" class="loading-text">
             <app-loading-spinner></app-loading-spinner>
         </div>
@@ -130,7 +102,7 @@
             <h4>{{error}}</h4>
 
         </div>
-    </div>
+    </div> -->
 </div>
 
 
