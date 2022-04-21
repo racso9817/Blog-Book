@@ -18,6 +18,6 @@
 - Modificar el estilo del login (falta imagen de fondo) [x]
 - Modificar estilo de soporte (falta revision de oscar) [x]
 - Enlazar formulario de soporte con correo real [ ]
-- Construir lógica para acceder con el login [ ]
+- Construir lógica para acceder con el login []
 - Agrega mas cosas a sobre nosotros []
-- Al dar click a profesor destacado llevar a descripción del profesor y las clases que da [ ]
+- Al dar click a profesor destacado llevar a descripción del profesor y las clases que da []
