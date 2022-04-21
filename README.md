@@ -1,33 +1,23 @@
-# BlogBook
+# ProfeDirect
+ Profe Direct código fuente en Angular más FireBase como Backend (saas)
 
- [Live Demo](https://mehulk05.github.io/Blog-Book).
+## Comandos importantes
+- markdown cheat sheet: https://www.markdownguide.org/cheat-sheet/
+- ng serve
 
-## What Are Various Features
-- CRUD Operations
-- Authentication (Email /password and Google login)
-- Verification of mail and Password recovery
-- Like/Unlike the post
-- Comment On posts
-- Public and Private options to mark their blog public and private. If the post is private then the only user can see his post after logging in
-- Can view other users profile and their blog
-- Search Filter
-- Featured Post and Latest Post
-- Rich Text Editor Like Medium(WYSIWYG)
-
-# What It Covers
-
-## This project covers all fundamentals of Angular
-
-- Cross Component Communication
-- Components, Template, and DataBinding
-- Form Validation
-- HttpClient
-- Animations
-- Dependency Injection
-- Routing & Navigation
-- Service Workers
-- Pipes
-- CRUD operations
-- Guards etc.
-
-# Live Demo :https://mehulk05.github.io/Blog-Book
+## TODO List
+- Cambiar texto de las preguntas [x]
+- Revisar gramática y ortografía [x]
+- En trabaja con nosotros mover última línea a la última pregunta [x]
+- Revisar banner del inicio para que se vea bien en todas las pantallas [x]
+- Soporte para diferentes pantallas, soporte para celulares []
+- Hacer un footer, revisar los estilos del footer actual y cambiarlos (falta soporte para celulares) [x] 
+- Hacer pestaña de planes y cursos(standby) [ ]
+- Revisar el routing en typescript para poner nombres adecuados(Importante) [ ]
+- Modificar tamaño del carousel del inicio (falta revision de oscar) [x]
+- Modificar el estilo del login (falta imagen de fondo) [x]
+- Modificar estilo de soporte (falta revision de oscar) [x]
+- Enlazar formulario de soporte con correo real [ ]
+- Construir lógica para acceder con el login [ ]
+- Agrega mas cosas a sobre nosotros []
+- Al dar click a profesor destacado llevar a descripción del profesor y las clases que da [ ]
