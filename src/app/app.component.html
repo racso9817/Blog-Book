@@ -51,11 +51,6 @@
     </div>
 </nav>
 
-
-
-
-
-
 <div class="container middle">
 
     <!-- <ngx-spinner bdColor="rgb(221,214,243,0.5)" size="medium" type="ball-spin-fade" color="#42275a" fullScreen=" true">
@@ -64,13 +59,54 @@
     <router-outlet></router-outlet>
 </div>
 
-
-
-<div class="container" *ngIf="!isloading">
-    <footer class="fadeInUp col-md-12">
+<div *ngIf="!isloading">
+    <!-- <footer class="fadeInUp col-md-12">
         <div class="footer-icons">
         </div>
+    </footer> -->
+    <footer class="footer" style="max-width: 100%;">
+        <div class="footerContainer">
+            <div class="f1">
+                <div class="profeLogo">
+                    <img src="/assets/images/logosprofe/profelogo2.png" style="width: 8vh;height: 8vh;" alt="ProfeDirect">
+                </div>
+                <br>
+                "La enseñanza es una virtud. Enséñame y aprendere" 
+                <p></p>
+                
+                <div class="logosIcons"> &nbsp;                    
+                   <a href="https://facebook.com/"><i class="fab fa-facebook"></i></a> &nbsp;
+                   <a href="https://instagram.com/"><i class="fab fa-instagram"></i></a> &nbsp;
+                   <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a> &nbsp;
+                   <a href="https://youtube.com/"><i class="fab fa-youtube"></i></a> &nbsp;
+                   <a href="https://ec.linkedin.com/"><i class="fab fa-linkedin"></i></a>
+                </div>
+                © 2022 ProfeDirect, Inc.
+            </div>
+            <div class="f2">
+                <ul style="list-style-type: none;">
+                    <h4>Explora</h4>
+                    <br>
+                    <li><a href="/sobrenosotros">Sobre nosotros</a></li>
+                    <br>
+                  </ul>
+            </div>
+            <div class="f3">
+                <ul style="list-style-type: none;">
+                    <h4>¡Únetenos!</h4>
+                    <br>
+                    <li><a href="/trabajaconnosotros">Trabaja con nosotros</a></li> 
+                  </ul>
+            </div>
+            <div class="f4">
+                <ul style="list-style-type: none;">
+                    <h4>Ayuda</h4>
+                    <br>
+                    <li><a href="/soporte">Soporte</a></li>
+                  </ul>
+            </div>
+          </div>        
     </footer>
 </div>
 
-<h5 *ngIf="!isloading" class="text-center copyright"> © Copyrights reserved by ProfeDirect</h5>
+<!-- <h5 *ngIf="!isloading" class="text-center copyright"> © Copyrights reserved by ProfeDirect</h5> -->
