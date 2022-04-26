@@ -4,7 +4,7 @@ import { CrudService } from '../shared/crud.service';
 import { catchError } from 'rxjs/operators';
 import { ACrudService } from '../../Authentication/shared/acrud.service';
 import { ToastrService } from 'ngx-toastr';
-import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselConfig, NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +14,16 @@ import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
 
-  showNavigationArrows = false;
-  showNavigationIndicators = false;
+  peliculas:any[]=[
+    {name:'Frozen 2',
+    img:'assets/imagenesprofe/fotoejemplo1.png',
+    desc:'Elsa, Anna, Kristoff and Olaf head far into the forest to learn the truth about an ancient mystery of their kingdom.'},
+    {
+      name:'The Irishman',
+      img:'assets/imagenesprofe/fotoejemplo2.png',
+      desc:'Pennsylvania, 1956. Frank Sheeran, a war veteran of Irish origin who works as a truck driver, accidentally meets mobster Russell Bufalino. Once Frank becomes his trusted man, Bufalino sends him to Chicago with the task of helping Jimmy Hoffa, a powerful union leader related to organized crime, with whom Frank will maintain a close friendship for nearly twenty years.'
+    }
+  ];
 
   data: UPost[];
   sorted: UPost[];
@@ -29,9 +37,20 @@ export class HomeComponent implements OnInit {
     private acrud: ACrudService,
     private toastr: ToastrService,
     config: NgbCarouselConfig) {
-      config.showNavigationArrows = true;
-      config.showNavigationIndicators = true;
-     }
+      // customize default values of carousels used by this component tree
+		config.interval = 5000;
+		config.wrap = false;
+		config.keyboard = false;
+		config.showNavigationArrows = true;
+		config.showNavigationIndicators = true;
+  }
+  
+  showNavigationIndicators = true;
+  showNavigationArrows = true;
+  paused = false;
+  unpauseOnArrow = false;
+  pauseOnIndicator = false;
+  pauseOnHover = true;
 
   ngOnInit(): void {
     this.getAllPost()
