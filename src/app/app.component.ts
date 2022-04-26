@@ -117,4 +117,11 @@ export class AppComponent implements OnInit {
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }
+
+  classIsSet=false
+toggleClass()
+  {
+   this.classIsSet=!this.classIsSet;
+  }
+
 }

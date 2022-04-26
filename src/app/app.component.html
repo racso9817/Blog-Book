@@ -1,11 +1,11 @@
-<nav class="navbar navbar-default main-header">
-    <div class="container header-main">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
         <div class="navbar-header">
             <a routerLink="/" class="navbar-brand">ProfeDirect</a>
         </div>
 
         <div class="collapse navbar-collapse" id="myHeader">
-            <ul class="nav navbar-nav">
+            <ul class="navbar-nav">
 
                 <!-- <li routerLinkActive="active">
                          <a routerLink="/login">login</a>
@@ -17,35 +17,36 @@
                     <a *ngIf="allpostcount==0" routerLink="/create-post">Create post</a>
                     <a *ngIf="allpostcount>0" routerLink="/create-post">Add Post</a>
                 </li> -->
-
-                <li routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a routerLink="/sobre">Sobre Nosotros</a>
+               
+                <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
+                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/sobre">Sobre Nosotros</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a routerLink="/trabaja">Trabaja con Nosotros</a>
+                <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
+                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/trabaja">Trabaja con Nosotros</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a routerLink="/soporte">Soporte</a>
+                <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
+                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/soporte">Soporte</a>
                 </li>                
-                <li routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied">
-                    <a routerLink="/myposts">MyPosts</a>
+                <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied">
+                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/myposts">MyPosts</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="isAuthenticated && !isprofileSet ">
-                    <a routerLink='/myprofile'>CreateProfile</a>
+                <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && !isprofileSet ">
+                    <a class="nav-link" style="text-decoration: none; color: black;"routerLink='/myprofile'>CreateProfile</a>
                 </li>
-                <li routerLinkActive="active" *ngIf="isAuthenticated && isprofileSet && isemailverfied">
-                    <a [routerLink]="['/myprofile', username]">MyProfile</a>
+                <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isprofileSet && isemailverfied">
+                    <a class="nav-link" style="text-decoration: none; color: black;" [routerLink]="['/myprofile', username]">MyProfile</a>
                 </li>
 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a routerLink="/auth">Iniciar sesión</a>
+            <ul class="navbar-nav ml-auto">
+            
+                <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated">                    
+                    <a class="nav-link"  style="text-decoration: none; color: black;" routerLink="/auth">Iniciar sesión</a>
                 </li>
-                <li *ngIf="isAuthenticated">
-                    <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+                <li class="nav-item"  *ngIf="isAuthenticated">
+                    <a class="nav-link" style="cursor: pointer;" (click)="onLogout()">Logout</a>
                 </li>
-
+             
             </ul>
         </div>
     </div>

@@ -2,6 +2,15 @@
         NEW CSS
     */
 
+    .body { padding-top: 40px; }
+@media screen and (max-width: 768px) {
+    body { padding-top: 0px; }
+}
+
+    .card {
+        border: none;
+    }
+
     .ct-series-c .ct-slice-donut {
         stroke: rgb(236, 239, 241);
       }
