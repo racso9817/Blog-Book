@@ -39,7 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { VerifyMailComponent } from './Authentication/verify-mail/verify-mail.component';
 import { NoSanitizePipe } from './Authentication/shared/no-sanitize.pipe';
 
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -74,7 +74,8 @@ import { NoSanitizePipe } from './Authentication/shared/no-sanitize.pipe';
     AngularFireStorageModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     Ng2SearchPipeModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgbModule
 
   ],
   providers: [CrudService,AuthService,ACrudService,AuthGuard],

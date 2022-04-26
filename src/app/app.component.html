@@ -26,10 +26,7 @@
                 </li>
                 <li routerLinkActive="active" *ngIf="!isAuthenticated">                    
                     <a routerLink="/soporte">Soporte</a>
-                </li>
-                <li routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a routerLink="/auth">Iniciar sesión</a>
-                </li>
+                </li>                
                 <li routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied">
                     <a routerLink="/myposts">MyPosts</a>
                 </li>
@@ -42,6 +39,9 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li routerLinkActive="active" *ngIf="!isAuthenticated">                    
+                    <a routerLink="/auth">Iniciar sesión</a>
+                </li>
                 <li *ngIf="isAuthenticated">
                     <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
                 </li>
@@ -68,7 +68,7 @@
         <div class="footerContainer">
             <div class="f1">
                 <div class="profeLogo">
-                    <img src="/assets/images/logosprofe/profelogo2.png" style="width: 8vh;height: 8vh;" alt="ProfeDirect">
+                    <img src="/assets/logosprofe/profelogo2.png" style="width: 8vh;height: 8vh;" alt="ProfeDirect">
                 </div>
                 <br>
                 "La enseñanza es una virtud. Enséñame y aprendere" 

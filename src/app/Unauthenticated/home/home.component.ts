@@ -4,12 +4,19 @@ import { CrudService } from '../shared/crud.service';
 import { catchError } from 'rxjs/operators';
 import { ACrudService } from '../../Authentication/shared/acrud.service';
 import { ToastrService } from 'ngx-toastr';
+import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [NgbCarouselConfig]  // add NgbCarouselConfig to the component providers
 })
 export class HomeComponent implements OnInit {
+
+  showNavigationArrows = false;
+  showNavigationIndicators = false;
+
   data: UPost[];
   sorted: UPost[];
   featuredPost: any
@@ -20,7 +27,11 @@ export class HomeComponent implements OnInit {
   commenData: any = []
   constructor(private cd: CrudService,
     private acrud: ACrudService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    config: NgbCarouselConfig) {
+      config.showNavigationArrows = true;
+      config.showNavigationIndicators = true;
+     }
 
   ngOnInit(): void {
     this.getAllPost()
