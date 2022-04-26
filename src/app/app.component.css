@@ -5,20 +5,10 @@
     font-size: 22px;
 }
 
-footer {
-    justify-content: center;
-    margin: 5rem auto;
-    text-align: center;
-}
 
-.github {
-    width: 30%;
-    background: #000!important;
-    color: #fff!important;
-    justify-content: center;
-    transition: all .2s ease-in-out;
-    font-weight: 600;
-}
+
+
+
 
 .button {
     margin-left: auto;
@@ -96,14 +86,6 @@ a.button.btn-light.medium:hover {
     float: none;
 }
 
-.copyright {
-    box-shadow: 0 10px 35px rgba(0, 0, 0, .3);
-    background: #e2e2e2;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    margin-bottom: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
 
 img.medium-icon {
     width: 24px;

@@ -12,6 +12,9 @@ import { ViewOnlyPublicPostComponent } from './user/view-only-public-post/view-o
 import { AuthGuard } from './Authentication/shared/auth-guard.service';
 import { ResetpasswordComponent } from './Authentication/resetpassword/resetpassword.component';
 import { VerifyMailComponent } from './Authentication/verify-mail/verify-mail.component';
+import { SobrenosotrosComponent } from './Unauthenticated/pages/sobrenosotros/sobrenosotros.component';
+import { SoporteComponent } from './Unauthenticated/pages/soporte/soporte.component';
+import { TrabajaconnosotrosComponent } from './Unauthenticated/pages/trabajaconnosotros/trabajaconnosotros.component';
 
 
 
@@ -36,6 +39,9 @@ const routes: Routes = [
   { path: 'myposts/:type/:id', component: UPostDetailComponent },
   { path: 'myposts/:type/:id/edit', component: UserEditComponent },
   { path: 'myposts/:type/:id/delete', component: UPostDetailComponent },
+  { path: 'sobre', component: SobrenosotrosComponent },
+  { path: 'trabaja', component: TrabajaconnosotrosComponent },
+  { path: 'soporte', component: SoporteComponent },
   
   {path: '**/undefined', redirectTo: '/home'},
 ];

@@ -40,6 +40,9 @@ import { VerifyMailComponent } from './Authentication/verify-mail/verify-mail.co
 import { NoSanitizePipe } from './Authentication/shared/no-sanitize.pipe';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SobrenosotrosComponent } from './Unauthenticated/pages/sobrenosotros/sobrenosotros.component';
+import { TrabajaconnosotrosComponent } from './Unauthenticated/pages/trabajaconnosotros/trabajaconnosotros.component';
+import { SoporteComponent } from './Unauthenticated/pages/soporte/soporte.component';
 
 
 @NgModule({
@@ -58,6 +61,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ResetpasswordComponent,
     VerifyMailComponent,
     NoSanitizePipe,
+    SobrenosotrosComponent,
+    TrabajaconnosotrosComponent,
+    SoporteComponent,
 
     
     
