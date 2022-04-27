@@ -1,3 +1,68 @@
 .card {
     border: none;
 }
+
+.containerD {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    gap: 0;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "d1 d2 d3";
+    /* background-color: #B5C9EF; */
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+    height: 30px;
+    padding-top: 2vh;
+    
+  }
+  
+  
+  .d1 { grid-area: d1; }
+  
+  .d2 { grid-area: d2; }
+  
+  .d3 { grid-area: d3; }
+  
+  
+  .containerD .d1 .d2 .d3 {
+  
+    width: 100%;
+    text-align: center;
+  }
+  
+  .d1 {
+   text-align: center;
+   background-color: #8bb9dd ;
+   align-items: center;
+   justify-items: center;
+   align-content: center;
+   font-weight: 500;
+   width: 100%;
+   height: 30px;
+  }
+  
+  .d2{
+  text-align: center;
+  background-color: #ffeb7a;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  font-weight: 500;
+  width: 100%;
+  height: 30px;
+  }
+  
+  .d3{
+  text-align: center;
+  background-color: #ee6f69;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  font-weight: 500;
+  width: 100%;
+  height: 30px;
+  }
+  
