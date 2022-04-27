@@ -26,11 +26,6 @@
     font-size: 22px;
 }
 
-.navbar-default .navbar-collapse .navbar-nav>li>a {
-    color: #000;
-    font-size: 16px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
 
 .main-content h2 {
     margin-top: 10px;
@@ -45,30 +40,6 @@
     -webkit-box-orient: vertical;
 }
 
-@media screen and (max-width:767px) {
-    .main-content h2 {
-        font-size: 18px;
-        font-weight: 700;
-    }
-    .navbar-nav,
-    .collapse.navbar-collapse ul>li {
-        display: inline-block;
-    }
-    .collapse.navbar-collapse {
-        display: block;
-    }
-    ul.nav.navbar-nav.navbar-right {
-        margin-left: 25px;
-    }
-    .navbar-nav {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .navbar-default .navbar-collapse .navbar-nav>li>a {
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-}
 
 .help-block {
     color: red
@@ -125,9 +96,6 @@
     line-height: 1.3;
 }
 
-.navbar-default {
-    margin-bottom: 45px;
-}
 
 button,
 p {
@@ -169,25 +137,10 @@ h2.title {
     h2.title {
         font-size: 18px;
     }
-    .navbar-default {
-        margin-bottom: 20px;
-    }
+    
 }
 
-@media screen and (max-width:350px) {
-    .navbar-default .navbar-collapse .navbar-nav>li>a {
-        padding: 8px;
-        font-size: 15px;
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-}
 
-@media screen and (min-width:351px) and (max-width:400px) {
-    .navbar-default .navbar-collapse .navbar-nav>li>a {
-        font-size: 15px;
-    }
-}
 
 a.author-name {
     color: #1b75d2;

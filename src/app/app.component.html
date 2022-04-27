@@ -3,8 +3,11 @@
         <div class="navbar-header">
             <a routerLink="/" class="navbar-brand">ProfeDirect</a>
         </div>
+        <button class="navbar-toggler"  type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+            &#9776;
+          </button>
 
-        <div class="collapse navbar-collapse" id="myHeader">
+        <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed" id="collapse_target" >
             <ul class="navbar-nav">
 
                 <!-- <li routerLinkActive="active">
@@ -18,33 +21,33 @@
                     <a *ngIf="allpostcount>0" routerLink="/create-post">Add Post</a>
                 </li> -->
                
-                <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/sobre">Sobre Nosotros</a>
+                <li class="nav-item active"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/sobre">Sobre Nosotros</a>
                 </li>
                 <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/trabaja">Trabaja con Nosotros</a>
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/trabaja">Trabaja con Nosotros</a>
                 </li>
                 <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/soporte">Soporte</a>
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/soporte">Soporte</a>
                 </li>                
                 <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied">
-                    <a class="nav-link" style="text-decoration: none; color: black;" routerLink="/myposts">MyPosts</a>
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/myposts">MyPosts</a>
                 </li>
                 <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && !isprofileSet ">
-                    <a class="nav-link" style="text-decoration: none; color: black;"routerLink='/myprofile'>CreateProfile</a>
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;"routerLink='/myprofile'>CreateProfile</a>
                 </li>
                 <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isprofileSet && isemailverfied">
-                    <a class="nav-link" style="text-decoration: none; color: black;" [routerLink]="['/myprofile', username]">MyProfile</a>
+                    <a class="nav-link" (click)="isMenuCollapsed = true"  style="text-decoration: none; color: black;" [routerLink]="['/myprofile', username]">MyProfile</a>
                 </li>
 
             </ul>
             <ul class="navbar-nav ml-auto">
             
-                <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated">                    
-                    <a class="nav-link"  style="text-decoration: none; color: black;" routerLink="/auth">Iniciar sesión</a>
+                <li class="nav-item active" routerLinkActive="active" *ngIf="!isAuthenticated">                    
+                    <a class="nav-link"   (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/auth">Iniciar sesión</a>
                 </li>
                 <li class="nav-item"  *ngIf="isAuthenticated">
-                    <a class="nav-link" style="cursor: pointer;" (click)="onLogout()">Logout</a>
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="cursor: pointer;" (click)="onLogout()">Logout</a>
                 </li>
              
             </ul>
@@ -88,7 +91,7 @@
                 <ul style="list-style-type: none;">
                     <h4>Explora</h4>
                     <br>
-                    <li><a href="/sobrenosotros">Sobre nosotros</a></li>
+                    <li><a routerLink="/sobre">Sobre nosotros</a></li>
                     <br>
                   </ul>
             </div>
@@ -96,14 +99,14 @@
                 <ul style="list-style-type: none;">
                     <h4>¡Únetenos!</h4>
                     <br>
-                    <li><a href="/trabajaconnosotros">Trabaja con nosotros</a></li> 
+                    <li><a routerLink="/trabaja">Trabaja con nosotros</a></li> 
                   </ul>
             </div>
             <div class="f4">
                 <ul style="list-style-type: none;">
                     <h4>Ayuda</h4>
                     <br>
-                    <li><a href="/soporte">Soporte</a></li>
+                    <li><a routerLink="/soporte">Soporte</a></li>
                   </ul>
             </div>
           </div>        

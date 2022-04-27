@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  public isMenuCollapsed = true;
+
   isAuthenticated = false;
   x
   ProfieData: { uname: any; desc: string; email: string; name: any; created_date: Date; imgurl: Observable<string>; isProfileSet: boolean };
@@ -123,5 +126,7 @@ toggleClass()
   {
    this.classIsSet=!this.classIsSet;
   }
+
+
 
 }
