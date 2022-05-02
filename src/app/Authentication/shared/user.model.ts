@@ -3,6 +3,7 @@ export class User {
   constructor(
     public email: string,
     public id: string,
+    public role: role,
     private _token: string,
     private _tokenExpirationDate: Date
   ) { }
@@ -16,13 +17,13 @@ export class User {
 }
 
 export class Profile {
-
   desc: string;
   email: string;
   imgurl: string;
   name: string;
   uname: string;
   isProfileSet?: boolean
+  role: role;
 }
 
 
@@ -32,4 +33,11 @@ export interface User1 {
   displayName: string;
   photoURL: string;
   emailVerified: boolean;
+  role: role;
+}
+
+export interface role {
+  student: boolean;
+  teacher: boolean;
+  admin: boolean;
 }

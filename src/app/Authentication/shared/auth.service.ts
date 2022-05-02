@@ -1,27 +1,32 @@
 import { Injectable, NgZone } from '@angular/core';
-
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
-import { User, User1 } from './user.model';
+import { role, User, User1 } from './user.model';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { ToastrService } from 'ngx-toastr';
+
+
 export interface AuthResponseData {
   kind: string;
   idToken: string;
   email: string;
+  role: role;
   refreshToken: string;
   expiresIn: string;
   localId: string;
   registered?: boolean;
 }
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   isAuthenticated = false;
   api = environment.firebaseConfig.apiKey
   user = new BehaviorSubject<User>(null);
@@ -29,6 +34,8 @@ export class AuthService {
   userdata = null
   userData: any;
   LoginData = new BehaviorSubject<any>(null);
+  role:role;
+
   constructor(private http: HttpClient,
     public afAuth: AngularFireAuth,
     private router: Router,
@@ -63,6 +70,7 @@ export class AuthService {
           this.handleAuthentication(
             resData.email,
             resData.localId,
+            resData.role,
             resData.idToken,
             +resData.expiresIn
           );
@@ -87,6 +95,7 @@ export class AuthService {
           this.handleAuthentication(
             resData.email,
             resData.localId,
+            resData.role,
             resData.idToken,
             +resData.expiresIn
           );
@@ -95,32 +104,34 @@ export class AuthService {
   }
 
 
-  doGoogleLogin() {
-    return new Promise<any>((resolve, reject) => {
-      let provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('profile');
-      provider.addScope('email');
-      this.afAuth.auth
-        .signInWithPopup(provider)
-        .then(res => {
-          this.handleAuthentication(
-            res.user.email,
-            res.user.uid,
-            res.user.refreshToken,
-            +360000
-          );
+  // doGoogleLogin() {
+  //   return new Promise<any>((resolve, reject) => {
+  //     let provider = new firebase.auth.GoogleAuthProvider();
+  //     provider.addScope('profile');
+  //     provider.addScope('email');
+  //     this.afAuth.auth
+  //       .signInWithPopup(provider)
+  //       .then(res => {
+  //         this.handleAuthentication(
+  //           res.user.email,
+  //           res.user.uid,
+  //           user.role,         
+  //           res.user.refreshToken,
+  //           +360000
+  //         );
 
-          resolve(res);
-        }, err => {
+  //         resolve(res);
+  //       }, err => {
 
-          reject(err);
-        })
-    })
-  }
+  //         reject(err);
+  //       })
+  //   })
+  // }
   autoLogin() {
     const userData: {
       email: string;
       id: string;
+      role: role;
       _token: string;
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData'));
@@ -131,6 +142,7 @@ export class AuthService {
     const loadedUser = new User(
       userData.email,
       userData.id,
+      userData.role,
       userData._token,
       new Date(userData._tokenExpirationDate)
     );
@@ -169,11 +181,12 @@ export class AuthService {
   private handleAuthentication(
     email: string,
     userId: string,
+    role:role,
     token: string,
     expiresIn: number
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, userId, token, expirationDate);
+    const user = new User(email, userId, role, token, expirationDate);
     this.userdata = user
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
@@ -291,7 +304,8 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      emailVerified: user.emailVerified
+      emailVerified: user.emailVerified,
+      role: user.role
     }
 
 

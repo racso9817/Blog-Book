@@ -73,16 +73,16 @@ export class AuthComponentComponent implements OnInit {
   }
 
 
-  tryGoogleLogin() {
-    this.isLoading = true
-    this.authService.doGoogleLogin()
-      .then(res => {
+  // tryGoogleLogin() {
+  //   this.isLoading = true
+  //   this.authService.doGoogleLogin()
+  //     .then(res => {
 
-        this.isLoading = false
-        this.getProfileByUid(res.uid)
+  //       this.isLoading = false
+  //       this.getProfileByUid(res.uid)
 
-      })
-  }
+  //     })
+  // }
 
 
   getProfileByUid(uid) {
