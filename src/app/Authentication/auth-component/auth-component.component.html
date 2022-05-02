@@ -13,19 +13,19 @@
                 <input type="email" id="email" class="form-control" ngModel name="email" required email />
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Contraseña</label>
                 <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6" />
             </div>
 
             <div class="form-group">
                 <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">
-                    {{ isLoginMode ? 'Login' : 'Sign Up' }}
+                    {{ isLoginMode ? 'Iniciar Sesión' : 'Registrarse' }}
                 </button> |
                 <button class="btn btn-primary" (click)="onSwitchMode()" type="button">
-                    Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
+                    Cambiar a {{ isLoginMode ? 'Registrarse' : 'Iniciar Sesión' }}
                 </button>
 
-                <a [routerLink]="['/reset-password']" class="btn btn-link">Forget Password</a>
+                <a [routerLink]="['/reset-password']" class="btn btn-link">Olvidé mi Contraseña</a>
 
             </div>
 
