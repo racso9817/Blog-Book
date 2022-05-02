@@ -210,7 +210,7 @@ export class ACrudService {
     else {
 
       this.http.post(
-        `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post//${this.uid}/private.json`,
+        `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/private.json`,
         this.postdata
       )
         .subscribe(responseData => {
