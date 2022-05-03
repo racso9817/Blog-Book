@@ -1,1 +1,35 @@
-<p>signup-teacher works!</p>
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-3">
+        <div class="alert alert-danger" *ngIf="error">
+            <p>{{ error }}</p>
+        </div>
+        <div *ngIf="isLoading" style="text-align: center;" class="loading-text">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form #authForm="ngForm" (ngSubmit)="onSignup(authForm)" *ngIf="!isLoading">
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" class="form-control" ngModel name="email" required email />
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6" />
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">
+                    <!-- {{ isLoginMode ? 'Iniciar Sesión' : 'Registrarse' }} -->
+                    {{'Registrarse'}}
+                </button> |
+                <button class="btn btn-primary" [routerLink]="['/signup-student']" type="button">
+                    <!-- Cambiar a {{ isLoginMode ? 'Registrarse' : 'Iniciar Sesión' }} -->
+                    {{'Registrarse como alumno'}}
+                </button> |
+                <button class="btn btn-primary" [routerLink]="['/auth']" type="button">
+                    <!-- Cambiar a {{ isLoginMode ? 'Registrarse' : 'Iniciar Sesión' }} -->
+                    {{'Iniciar Sesión'}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
