@@ -21,3 +21,9 @@
 - Construir lógica para acceder con el login []
 - Agrega mas cosas a sobre nosotros []
 - Al dar click a profesor destacado llevar a descripción del profesor y las clases que da []
+
+## IMPORTANT TODOs:
+- Crear una variable en user.model.ts que verifique si es estudiante, profesor o admin. Debe ser algo parecido al isProfileSet (revisar esta variable y entender su uso para replicarlo)
+- Eliminar la interfaces de roles en user.model.ts, es mejor usar el truco de isProfileSet (revisar esta variable y replicar su uso para el propósito mencionado)
+- Editar los forms de edit my profile tanto para estudiante como para profesor, y que cumpla con los requisitos necesarios (después de investigar bien, firebase no permite agregar más campos en la función createuserwithemailandpassword así que todos los campos necesarios deberán ser agregados en el edit my profile)
+- Cuando un profesor carga su información en el edit my profile se debe crear una lógica para que este no pueda seguir navegando hasta que se apruebe su solicitud de profesor
