@@ -12,9 +12,15 @@ import { ACrudService } from '../shared/acrud.service';
 })
 export class AuthComponentComponent implements OnInit {
   isLoginMode = true;
+  studentLoginMode = true;
+  teacherLoginMode = true;
   isLoading = false;
   error: string = null;
   isPorfileset: boolean = false;
+  isStudent = false;
+  isTeacher = false;
+  isAdmin = false;
+
   constructor(private authService: AuthService,
     private acrud: ACrudService,
     private router: Router) { }
@@ -27,6 +33,14 @@ export class AuthComponentComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
 
+  onSwitchStudentMode() {
+    this.studentLoginMode = !this.studentLoginMode;
+  }
+
+  onSwitchTeacherMode() {
+    this.teacherLoginMode = !this.teacherLoginMode;
+  }
+
   onSubmit(form: NgForm) {
     if (!form.valid) {
       return;
@@ -35,40 +49,32 @@ export class AuthComponentComponent implements OnInit {
     const password = form.value.password;
     this.isLoading = true;
     if (this.isLoginMode) {
-
-
       this.authService.SignIn(email, password)
         .then(d => {
           this.isLoading = false
           this.authService.LoginData.subscribe(x => {
-
             if (x.user.emailVerified) {
               this.getProfileByUid(x.user.uid)
             }
           })
-
         })
         .catch(e => {
           this.isLoading = false
           this.error = e.message
         })
-
-    } else {
-
-      this.authService.SignUp(email, password).then(d => {
-
-        this.isLoading = false
-        this.authService.logout()
-      })
-        .catch(e => {
-          this.authService.logout()
-          this.isLoading = false
-          this.error = e
-        })
-
     }
+    // else {
+    //   this.authService.SignUp(email, password).then(d => {
+    //     this.isLoading = false
+    //     this.authService.logout()
+    //   })
+    //     .catch(e => {
+    //       this.authService.logout()
+    //       this.isLoading = false
+    //       this.error = e
+    //     })
 
-
+    // }
     form.reset();
   }
 
@@ -86,29 +92,18 @@ export class AuthComponentComponent implements OnInit {
 
 
   getProfileByUid(uid) {
-
     this.acrud.getProfileFromUid(uid).subscribe(data => {
-
-
-
-
       let x = this.acrud.seprate(data)
       this.isPorfileset = x[0];
-
       this.isLoading = false
-
       if (this.isPorfileset) {
         this.router.navigate(['']);
       }
       else {
-
         this.router.navigate(['myprofile'])
       }
-
     })
-
   }
-
 }
 
 

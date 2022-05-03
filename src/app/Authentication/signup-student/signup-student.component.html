@@ -6,7 +6,7 @@
         <div *ngIf="isLoading" style="text-align: center;" class="loading-text">
             <app-loading-spinner></app-loading-spinner>
         </div>
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+        <form #authForm="ngForm" (ngSubmit)="onSignup(authForm)" *ngIf="!isLoading">
             <div class="form-group">
                 <label for="email">E-Mail</label>
                 <input type="email" id="email" class="form-control" ngModel name="email" required email />
@@ -19,27 +19,17 @@
             <div class="form-group">
                 <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">
                     <!-- {{ isLoginMode ? 'Iniciar Sesión' : 'Registrarse' }} -->
-                    {{'Iniciar Sesión'}}
-                </button> |
-                <button class="btn btn-primary" [routerLink]="['/signup-student']" type="button">
-                    <!-- Cambiar a {{ isLoginMode ? 'Registrarse' : 'Iniciar Sesión' }} -->
-                    {{'Registrarse como alumno'}}
+                    {{'Registrarse'}}
                 </button> |
                 <button class="btn btn-primary" [routerLink]="['/signup-teacher']" type="button">
                     <!-- Cambiar a {{ isLoginMode ? 'Registrarse' : 'Iniciar Sesión' }} -->
                     {{'Registrarse como profesor'}}
+                </button> |
+                <button class="btn btn-primary" [routerLink]="['/auth']" type="button">
+                    <!-- Cambiar a {{ isLoginMode ? 'Registrarse' : 'Iniciar Sesión' }} -->
+                    {{'Iniciar Sesión'}}
                 </button>
-
-                <a [routerLink]="['/reset-password']" class="btn btn-link">Olvidé mi Contraseña</a>
-
             </div>
-
-            <!-- <div class="form-group">
-                <button type="button" class="btn btn-block" (click)="tryGoogleLogin()">
-                    <i class="fa fa-google" aria-hidden="true"></i>
-                    Login with Google
-                </button>
-            </div> -->
         </form>
     </div>
 </div>

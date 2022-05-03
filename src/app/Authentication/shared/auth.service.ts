@@ -36,6 +36,10 @@ export class AuthService {
   LoginData = new BehaviorSubject<any>(null);
   role:role;
 
+  isTeacher = false;
+  isStudent = false;
+  isAdmin = false;
+
   constructor(private http: HttpClient,
     public afAuth: AngularFireAuth,
     private router: Router,
@@ -54,30 +58,30 @@ export class AuthService {
   }
 
 
-  signup(email: string, password: string) {
-    return this.http
-      .post<AuthResponseData>(
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + this.api,
-        {
-          email: email,
-          password: password,
-          returnSecureToken: true
-        }
-      )
-      .pipe(
-        catchError(this.handleError),
-        tap(resData => {
-          this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.role,
-            resData.idToken,
-            +resData.expiresIn
-          );
+  // signup(email: string, password: string) {
+  //   return this.http
+  //     .post<AuthResponseData>(
+  //       'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + this.api,
+  //       {
+  //         email: email,
+  //         password: password,
+  //         returnSecureToken: true
+  //       }
+  //     )
+  //     .pipe(
+  //       catchError(this.handleError),
+  //       tap(resData => {
+  //         this.handleAuthentication(
+  //           resData.email,
+  //           resData.localId,
+  //           resData.role,
+  //           resData.idToken,
+  //           +resData.expiresIn
+  //         );
 
-        })
-      );
-  }
+  //       })
+  //     );
+  // }
 
   login(email: string, password: string) {
     return this.http
@@ -249,6 +253,24 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
 
+        this.logout()
+        this.SendVerificationMail(); // Sending email verification notification, when new user registers
+      })
+  }
+
+  SignUpStudent(email, password) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.isStudent = true;
+        this.logout()
+        this.SendVerificationMail(); // Sending email verification notification, when new user registers
+      })
+  }
+
+  SignUpTeacher(email, password) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.isTeacher = true;
         this.logout()
         this.SendVerificationMail(); // Sending email verification notification, when new user registers
       })

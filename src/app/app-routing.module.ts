@@ -15,6 +15,8 @@ import { VerifyMailComponent } from './Authentication/verify-mail/verify-mail.co
 import { SobrenosotrosComponent } from './Unauthenticated/pages/sobrenosotros/sobrenosotros.component';
 import { SoporteComponent } from './Unauthenticated/pages/soporte/soporte.component';
 import { TrabajaconnosotrosComponent } from './Unauthenticated/pages/trabajaconnosotros/trabajaconnosotros.component';
+import { SignupStudentComponent } from './Authentication/signup-student/signup-student.component';
+import { SignupTeacherComponent } from './Authentication/signup-teacher/signup-teacher.component';
 
 
 
@@ -42,6 +44,9 @@ const routes: Routes = [
   { path: 'sobre', component: SobrenosotrosComponent },
   { path: 'trabaja', component: TrabajaconnosotrosComponent },
   { path: 'soporte', component: SoporteComponent },
+
+  {path: 'signup-student', component: SignupStudentComponent},
+  {path:'signup-teacher', component: SignupTeacherComponent},
   
   {path: '**/undefined', redirectTo: '/home'},
 ];

@@ -43,6 +43,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SobrenosotrosComponent } from './Unauthenticated/pages/sobrenosotros/sobrenosotros.component';
 import { TrabajaconnosotrosComponent } from './Unauthenticated/pages/trabajaconnosotros/trabajaconnosotros.component';
 import { SoporteComponent } from './Unauthenticated/pages/soporte/soporte.component';
+import { SignupTeacherComponent } from './Authentication/signup-teacher/signup-teacher.component';
+import { SignupStudentComponent } from './Authentication/signup-student/signup-student.component';
 
 
 @NgModule({
@@ -64,6 +66,8 @@ import { SoporteComponent } from './Unauthenticated/pages/soporte/soporte.compon
     SobrenosotrosComponent,
     TrabajaconnosotrosComponent,
     SoporteComponent,
+    SignupTeacherComponent,
+    SignupStudentComponent,
 
     
     
