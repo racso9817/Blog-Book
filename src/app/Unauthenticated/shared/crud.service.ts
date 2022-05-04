@@ -79,7 +79,7 @@ export class CrudService {
 
     this.filepath = "UauthUsers"
 
-    const filePath = `${this.filepath}/${file.name}`;
+    const filePath = `${this.filepath}/${this.uname}/${file.name}`;
     const fileRef = this.afStorage.ref(filePath);
     const task = this.afStorage.upload(filePath, file);
     this.uploadPercent = task.percentageChanges();
