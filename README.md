@@ -23,7 +23,6 @@
 - Al dar click a profesor destacado llevar a descripción del profesor y las clases que da []
 
 ## IMPORTANT TODOs:
-- Crear una variable en user.model.ts que verifique si es estudiante, profesor o admin. Debe ser algo parecido al isProfileSet (revisar esta variable y entender su uso para replicarlo)
-- Eliminar la interfaces de roles en user.model.ts, es mejor usar el truco de isProfileSet (revisar esta variable y replicar su uso para el propósito mencionado)
-- Editar los forms de edit my profile tanto para estudiante como para profesor, y que cumpla con los requisitos necesarios (después de investigar bien, firebase no permite agregar más campos en la función createuserwithemailandpassword así que todos los campos necesarios deberán ser agregados en el edit my profile)
-- Cuando un profesor carga su información en el edit my profile se debe crear una lógica para que este no pueda seguir navegando hasta que se apruebe su solicitud de profesor
+- Crear una función que recorra el objeto json en RTDB y revisar los valores booleanos de: isAdmin, isStudent, isTeacher. Si son true definir los campos que deben aparecer en el formulario para creación del perfil.
+- Revisar que las imagenes se guarden dentro de la carpeta UauthUsers/[username]/profile para la foto de perfil, cedula y título en caso de ser profesor. UauthUsers/[username]/posts para las imagenes de los posts.
+- Adicionar un correo electronico si los estudiantes son menores de edad para notificar a los representantes

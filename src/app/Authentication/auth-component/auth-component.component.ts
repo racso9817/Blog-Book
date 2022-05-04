@@ -17,6 +17,7 @@ export class AuthComponentComponent implements OnInit {
   isLoading = false;
   error: string = null;
   isPorfileset: boolean = false;
+  
   isStudent = false;
   isTeacher = false;
   isAdmin = false;

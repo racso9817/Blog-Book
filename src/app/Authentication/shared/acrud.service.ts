@@ -10,17 +10,11 @@ import { Router } from '@angular/router';
 import { Profile, User1 } from './user.model';
 import { ToastrService } from 'ngx-toastr';
 
-
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class ACrudService {
-
-
   postdata = {}
   uid: string
 
@@ -44,7 +38,9 @@ export class ACrudService {
   db_key: string;
   firestorekey: string;
   x: Observable<{ title: string; desc: string; created_date?: Date; imgurl: string; category: string; subcategory?: string; name: string; privacy: string; id: string; }[]>;
-  ProfieData: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean };
+  ProfieData: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean };
+  ProfileDataStudent: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean };
+  ProfileDataTeacher: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean };
   editedProfileData: { id: string; uname: string; desc: string; email: string; name: string; imgurl: Observable<string>; created_date?: Date; isProfileSet: boolean; };
   uname: any;
   id: any;
@@ -52,63 +48,47 @@ export class ACrudService {
   acrud: any;
   featuredPost: any;
   featuredPostsorted: any[];
+  //variable para separar nombre y apellido y usarlo en vez de uname
+  // separateName: any;
+  // unifiedName: string;
 
-
-
-
-
-  constructor(private http: HttpClient,
-
+  constructor(
+    private http: HttpClient,
     private ucrud: CrudService,
     private authService: AuthService,
     private afs: AngularFirestore,
     private router: Router,
     private toastr: ToastrService) {
 
-
     setTimeout(() => {
       this.authService.user.subscribe(data => {
-
         if (data) {
           this.uid = data.id
         }
-
-
-      }
-
-      )
+      })
     }, 2000)
-
-
-
   }
+
   getUid() {
     return new Promise(res => {
       this.authService.user.subscribe((user) => {
         if (user) {
-
           this.uid = user.uid
-
-
         }
         res(this.uid)
-
       })
-
     })
   }
+
   sortDesecending(Post) {
-
-
     Post.sort((a: any, b: any) =>
       b.created_date - a.created_date
     )
-
-
     return Post
   }
 
 
+  //funcion para crear un perfil con isAdmin = true
   createProfile(value: Profile) {
     this.getUid()
     this.ProfieData = {
@@ -119,59 +99,121 @@ export class ACrudService {
       name: value.name,
       created_date: this.ucrud.currentDate,
       imgurl: this.ucrud.downloadURL,
-      isProfileSet: true
-
+      isProfileSet: true,
+      isStudent: false,
+      isTeacher:false,
+      isAdmin: true
     }
+    // this.separateName = this.ProfieData.name.split(" ")
+    // for(let i in this.separateName){
+    //   this.unifiedName += i + "-";
+    // }
+    // this.createPublicProfile(this.ProfieData, this.unifiedName)
+    // this.separateName = null
+    // this.unifiedName = ""
     this.createPublicProfile(this.ProfieData, this.ProfieData.uname)
     this.getUid().then(d => {
-
-
       this.http.post(
         `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/profile.json`,
         this.ProfieData
       )
-
         .subscribe(responseData => {
-
           this.showSuccessCreateProfile()
         });
     })
+  }
 
+  createStudentProfile(value: Profile) {
+    this.getUid();
+    this.ProfileDataStudent = {
+      id: this.uid,
+      uname: value.uname,
+      desc: value.desc,
+      email: value.email,
+      name: value.name,
+      created_date: this.ucrud.currentDate,
+      imgurl: this.ucrud.downloadURL,
+      isProfileSet: true,
+      isStudent: true,
+      isTeacher:false,
+      isAdmin: false
+    }
+    // this.separateName = this.ProfileDataStudent.name.split(" ")
+    // for(let i in this.separateName){
+    //   this.unifiedName += i + "-";
+    // }
+    // console.log(this.unifiedName)
+    // this.createPublicProfile(this.ProfileDataStudent, this.unifiedName)
+    // this.separateName = null
+    // this.unifiedName = ""
+    this.createPublicProfile(this.ProfileDataStudent, this.ProfileDataStudent.uname)
+    this.getUid().then(d => {
+      this.http.post(
+        `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/profile.json`,
+        this.ProfileDataStudent
+      )
+        .subscribe(responseData => {
+          this.showSuccessCreateProfile()
+        });
+    });
+  }
 
-
+  createTeacherProfile(value: Profile) {
+    this.getUid();
+    this.ProfileDataTeacher = {
+      id: this.uid,
+      uname: value.uname,
+      desc: value.desc,
+      email: value.email,
+      name: value.name,
+      created_date: this.ucrud.currentDate,
+      imgurl: this.ucrud.downloadURL,
+      isProfileSet: true,
+      isStudent: false,
+      isTeacher:true,
+      isAdmin: false
+    }
+    // this.separateName = this.ProfileDataTeacher.name.split(" ")
+    // for(let i in this.separateName){
+    //   this.unifiedName += i + "-";
+    // }
+    // this.createPublicProfile(this.ProfileDataTeacher, this.unifiedName)
+    // this.separateName = null
+    // this.unifiedName = ""
+    this.createPublicProfile(this.ProfileDataTeacher, this.ProfileDataTeacher.uname)
+    this.getUid().then(d => {
+      this.http.post(
+        `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/profile.json`,
+        this.ProfileDataTeacher
+      )
+        .subscribe(responseData => {
+          this.showSuccessCreateProfile()
+        });
+    });
   }
 
   createPublicProfile(postdata: any, uname) {
-
     this.http.post(
       `https://profedirect-bbcb8-default-rtdb.firebaseio.com/PublicProfile/${uname}.json`,
       postdata
     )
-
-      .subscribe(responseData => {
-
-
-      });
-
+      .subscribe(responseData => {});
   }
 
   getProfile(): Observable<Profile[]> {
-
     this.getUid()
     if (this.uid) {
-
-
       return this.http.get<Profile[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/profile.json`)
     }
     else {
       this.getUid().then((d: any) => {
-
         this.uid = d
         return this.http.get<Profile[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/profile.json`)
       })
     }
-
   }
+
+  //Utilizar funcion para crear una publicacion (ej: cursos)
   createPost(value: UPost) {
     this.postdata = {
       title: value.title,
@@ -193,61 +235,58 @@ export class ACrudService {
         this.http.post(
           `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/public.json`,
           this.postdata
-        )
-          .subscribe(responseData => {
-
+        ).subscribe(responseData => {
             this.router.navigate(['']);
             this.showSuccess();
-          }
-            , err => {
-
-            })
-          ;
+          }, err => {});
       })
-
-
     }
     else {
-
       this.http.post(
         `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/private.json`,
         this.postdata
       )
         .subscribe(responseData => {
-
           this.router.navigate(['']);
         });
     }
   }
+  //Utilizar funcion para crear una publicacion (ej: cursos)
+
+  //getter para obtener los datos de la publicacion
   getPublicPost(): Observable<UPost[]> {
     return this.http.get<UPost[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/public.json`)
-
   }
+  //getter para obtener los datos de la publicacion
 
+  //getter para obtener los datos de la publicacion privada
   getPrivatePost(): Observable<UPost[]> {
     return this.http.get<UPost[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/private.json`)
-
   }
+  //getter para obtener los datos de la publicacion privada
 
+  //getter de cualquier tipo de publicaciones
   getAllData() {
     this.getUid()
     let x = this.http.get<UPost[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/public.json`)
     let y = this.http.get<UPost[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/private.json`)
     return forkJoin(x, y)
-
-
   }
+  //getter de cualquier tipo de publicaciones
+
+  //retorna objeto de firebase
   seprate(x1) {
     let x3 = []
     for (const key in x1) {
-
       if (x1.hasOwnProperty(key)) {
         x3.push({ ...x1[key] });
       }
     }
     return x3
-
   }
+  //funcion para separar
+
+
 
   getDemo1() {
     this.http.get<UPost[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/private.json`)
@@ -255,7 +294,6 @@ export class ACrudService {
         map(responseData => {
           const postsArray: UPost[] = [];
           for (const key in responseData) {
-
             if (responseData.hasOwnProperty(key)) {
               postsArray.push({ ...responseData[key] });
             }
@@ -265,10 +303,8 @@ export class ACrudService {
       )
       .subscribe(posts => {
         this.d1 = posts
-
         this.pr.next(posts)
         this.combine()
-
         return this.d1;
       });
   }
@@ -290,9 +326,7 @@ export class ACrudService {
       .subscribe(posts => {
         this.pu.next(posts)
         this.d2 = posts
-
         this.combine()
-
         return this.d2;
       });
   }
@@ -302,10 +336,8 @@ export class ACrudService {
     this.all.next(this.d3)
   }
 
-
+  //funcion para actualizar una publicacion
   update(id, value, formvalue, imgurl) {
-
-
     this.postdata = {
       title: formvalue.title,
       nameToSearch: formvalue.title.toLowerCase(),
@@ -318,26 +350,19 @@ export class ACrudService {
       created_date: this.ucrud.currentDate,
       uid: value.uid,
       uname: value.uname
-
     }
-
     this.Comare_In_FireStore(value, formvalue)
-
     if (value.privacy == "true") {
       if (formvalue.privacy == "true") {
-
         let c = this.pb(id, value)
         this.Edit_Public_Post(this.postdata, c)
         this.EditInFireStore(this.postdata, value)
-
       }
       else {
-
         this.Create_Private_Post(this.postdata)
         let c = this.pb(id, value)
         this.deletePublicPost(this.postdata, c)
         this.deleteFromFireStore(value)
-
       }
     }
     else {
@@ -350,53 +375,47 @@ export class ACrudService {
         let c = this.getpr(value)
         this.deletePrivatePost(this.postdata, c)
         this.CreateInFireStore(this.postdata)
-
       }
-
     }
   }
+  //funcion para actualizar una publicacion
 
+
+  //funcion para editar una publicacion en firestore
   EditInFireStore(postdata: {}, value) {
-
     this.x.subscribe((querySnapshot) => {
-
       for (const key in querySnapshot) {
-
         if (querySnapshot[key].title == value.title && querySnapshot[key].name == value.name) {
           this.firestorekey = querySnapshot[key].id
           this.afs.collection("normal-users").doc(this.firestorekey).update(postdata)
         }
-
       }
-
-
     });
-
   }
+  //funcion para editar una publicacion en firestore
+
+
+  //crear una publicacion en firestore
   CreateInFireStore(postdata: {}) {
     this.afs.collection("normal-users").add(postdata).then(
-      r => {
-
-      }).catch(e => {
-      })
-
+      r => {}).catch(e => {})
   }
+  //crear una publicacion en firestore
 
-
+  //eliminar en firestore
   deleteFromFireStore(value) {
     this.x.subscribe((querySnapshot) => {
-
       for (const key in querySnapshot) {
-
         if (querySnapshot[key].title == value.title && querySnapshot[key].name == value.name) {
           this.firestorekey = querySnapshot[key].id
           this.afs.collection("normal-users").doc(this.firestorekey).delete()
         }
-
       }
     });
-
   }
+  //eliminar en firestore
+
+  //elminar una publicacion publica
   deletePublicPost(postdata: {}, c: Observable<void>) {
     c.subscribe(x => {
       this.http.delete(
@@ -406,7 +425,9 @@ export class ACrudService {
         })
     })
   }
-
+  //elminar una publicacion publica
+  
+  //elminar una publicacion privada
   deletePrivatePost(postdata: {}, c: Observable<void>) {
     c.subscribe(x => {
       this.http.delete(
@@ -417,7 +438,10 @@ export class ACrudService {
         })
     })
   }
+  //elminar una publicacion privada
 
+
+  //funcion para editar una publicacion privada
   Edit_Private_Post(postdata: {}, c) {
     c.subscribe(x => {
       this.http.patch(
@@ -428,6 +452,9 @@ export class ACrudService {
         })
     })
   }
+  //funcion para editar una publicacion privada
+
+  //funcion para editar una publicacion publica
   Edit_Public_Post(postdata: {}, c) {
     c.subscribe(x => {
       this.http.patch(
@@ -437,8 +464,10 @@ export class ACrudService {
           this.showSuccessEdit()
         })
     })
-
   }
+  //funcion para editar una publicacion publica
+
+  //funcion para crear una publicacion privada
   Create_Private_Post(postdata: {}) {
     this.http.post(
       `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/private.json`,
@@ -449,7 +478,9 @@ export class ACrudService {
 
       });
   }
+  //funcion para crear una publicacion privada
 
+  //funcion para crear una publicacion publica
   Create_Public_Post(postdata: {}) {
     this.http.post(
       `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/public.json`,
@@ -459,7 +490,9 @@ export class ACrudService {
 
       });
   }
+  //funcion para crear una publicacion publica
 
+  //comparar en firestore
   Comare_In_FireStore(value, formvalue) {
     this.x = this.afs.collection("normal-users").snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
@@ -514,6 +547,8 @@ export class ACrudService {
     this.url = url;
     this.post_id = id;
   }
+
+
   UpdateProfile(value, oldvalue, imgdownloadurl) {
     this.editedProfileData = {
       id: oldvalue.id,
@@ -529,18 +564,13 @@ export class ACrudService {
     let uname = oldvalue.uname
     let newuname = value.uname
     console.log(imgdownloadurl)
-
     let c = this.getProfileKey(value, oldvalue.uname)
-
     let c2 = this.getPublicProfileKey(value, oldvalue.uname)
     c.subscribe(d => {
-
       this.http.delete(
         `https://profedirect-bbcb8-default-rtdb.firebaseio.com/PublicProfile/${uname}.json`
       )
-
         .subscribe(responseData => {
-
         });
 
       this.createPublicProfile(this.editedProfileData, newuname)
@@ -583,20 +613,14 @@ export class ACrudService {
     return this.http.get<Profile[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/profile.json`)
       .pipe(
         map(responseData => {
-
           for (const key in responseData) {
             if (responseData[key].uname == uname) {
               this.db_key = key
-
-
-
             }
             else {
               console.log("no data  ")
             }
-
           }
-
         })
       )
   }
@@ -604,7 +628,6 @@ export class ACrudService {
 
 
   getPublicProfile(uname): Observable<Profile[]> {
-
     return this.http.get<Profile[]>(`https://profedirect-bbcb8-default-rtdb.firebaseio.com/PublicProfile/${uname}.json`)
   }
 

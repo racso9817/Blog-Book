@@ -21,15 +21,12 @@
             <a class="list-group-item" routerLinkActive="active" [routerLink]="['publicposts']">Public Posts
                 <span class="count-post"> ({{pbcount}})</span>
             </a>
-
             <a class="list-group-item disabled" [routerLink]="['']">Private Posts
                 <span class="count-post"> ({{prcount}})</span></a>
-
             <a class="list-group-item disabled" [routerLink]="['']">All Posts
                 <span class="count-post"> ({{allcount}})</span></a>
         </div>
     </div>
-
 
     <div class="col-md-7 col-sm-12 center-block">
         <div class="row" *ngIf="ProfileData">

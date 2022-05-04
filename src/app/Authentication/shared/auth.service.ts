@@ -252,7 +252,7 @@ export class AuthService {
   SignUp(email, password) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-
+        this.isAdmin = true;
         this.logout()
         this.SendVerificationMail(); // Sending email verification notification, when new user registers
       })
@@ -281,9 +281,6 @@ export class AuthService {
       .then(() => {
         this.showError()
         this.router.navigate(['verify-mail']);
-
-
-
       })
       .catch(e => {
         this.toastr.warning(e.message, 'Alert', {
@@ -347,6 +344,9 @@ export class AuthService {
     })
 
   }
+
+
+
   showSuccess() {
     this.toastr.success('Password Link Sent', 'Please check your registered email', {
       timeOut: 20000

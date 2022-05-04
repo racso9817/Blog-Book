@@ -23,7 +23,9 @@ export class Profile {
   name: string;
   uname: string;
   isProfileSet?: boolean
-  role: role;
+  isStudent?: boolean
+  isTeacher?: boolean
+  isAdmin?: boolean
 }
 
 

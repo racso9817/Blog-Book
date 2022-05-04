@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/Unauthenticated/shared/crud.service';
 import { AuthService } from 'src/app/Authentication/shared/auth.service';
 import { ACrudService } from 'src/app/Authentication/shared/acrud.service';
 import { Profile } from 'src/app/Authentication/shared/user.model';
+import { toString } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
       { type: 'required', message: 'Name is required.' },
     ]
   };
+
   href: string;
   profileReturned: any;
   x: string[];
@@ -43,6 +45,10 @@ export class ProfileComponent implements OnInit {
   usernamParam: string
   email: string
 
+  //variables para saber rol del usuario
+  isAdmin: string
+  isStudent: string;
+  isTeacher: string;
 
   constructor(
     private router: Router,
@@ -70,36 +76,54 @@ export class ProfileComponent implements OnInit {
     this.uploadPercent = this.firebaseService.uploadPercent;
     this.firebaseService.downloadurlchange.subscribe((data: string) => {
       this.downloadURL = data
-
     },
       err => { console.log(err.message) })
-
-
   }
+
+
   ngOnInit(): void {
     this.authService.user.subscribe((x: any) => {
-
       if (x.email) {
         this.email = x.email
-
       }
     })
     this.href = this.router.url;
     this.x = this.href.split("/")
-
     this.usernamParam = this.x[2]
+    // console.log(this.x);
     if (this.x[2] && this.x[3] == "editProfile") {
       this.getProfileData()
     }
+    
+    this.acrud.getProfile().subscribe(d => {
+      // console.log(d)
+      for(let i in d){
+        // console.log(i)
+        // console.log(d[i]['isStudent'])
+        localStorage.setItem('isStudent', d[i]['isStudent'].toString())
+        localStorage.setItem('isTeacher', d[i]['isTeacher'].toString())
+        localStorage.setItem('isAdmin', d[i]['isAdmin'].toString())
+      }
+    })
 
-    this.CreateProfile()
+    this.isAdmin = localStorage.getItem('isAdmin');
+    this.isStudent = localStorage.getItem('isStudent');
+    this.isTeacher = localStorage.getItem('isTeacher');
 
+    if(this.isAdmin == "true"){
+      this.CreateProfile();
+    }
+    else if(this.isTeacher == "true"){
+      this.CreateProfileTeacher();
+    }
+    else if(this.isStudent == "true"){
+      this.CreateProfileStudent();
+    }
     if (this.x[2] == null) {
       this.checkProfileExist()
-
-    }
-
+    }    
   }
+
   checkProfileExist() {
     this.acrud.getProfile().subscribe(d => {
       let x = this.acrud.seprate(d)
@@ -109,28 +133,26 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
+
   getProfileData() {
     this.acrud.getProfile().subscribe(d => {
       let x = this.acrud.seprate(d)
       this.profileReturned = x[0]
-
       if (this.usernamParam !== this.profileReturned.uname) {
         this.router.navigate(["home"])
       }
       this.SetProfileForm(x[0])
-
     })
   }
+
   SetProfileForm(profiled4eturned: any) {
     this.imageSrc = profiled4eturned.imgurl
     this.downloadURL = profiled4eturned.imgurl
     this.ProfileForm.patchValue({
-
       uname: profiled4eturned.uname,
       desc: profiled4eturned.desc,
       name: profiled4eturned.name,
       email: this.email,
-
     })
   }
 
@@ -141,24 +163,42 @@ export class ProfileComponent implements OnInit {
       desc: [''],
       name: ['', Validators.required],
       uname: ['', Validators.required,],
-
-
     });
-
   }
+
+  CreateProfileStudent() {
+    this.ProfileForm = this.fb.group({
+      imgurl: ['', Validators.required],
+      cedulaimgurl: ['', Validators.required],
+      email: [this.email, Validators.required],
+      desc: [''],
+      name: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      uname: ['', Validators.required,],
+    });
+  }
+
+  CreateProfileTeacher() {
+    this.ProfileForm = this.fb.group({
+      imgurl: ['', Validators.required],
+      titleimgurl: ['', Validators.required],
+      cedulaimgurl: ['', Validators.required],
+      email: [this.email, Validators.required],
+      desc: [''],
+      name: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      uname: ['', Validators.required,],
+    });
+  }
+
   validateUsername(): any {
     let x = ""
     if (this.profileReturned) {
-
       x = this.profileReturned.uname
     }
     else {
       x = ""
     }
-
-
-
-
     if (x !== this.username) {
       this.acrud.getPublicProfile(this.username).subscribe(d => {
         if (d !== null) {
@@ -177,7 +217,6 @@ export class ProfileComponent implements OnInit {
 
   checkUsername(value) {
     this.username = value
-
     this.validateUsername()
   }
 
@@ -185,19 +224,26 @@ export class ProfileComponent implements OnInit {
     if (this.x[2] && this.x[3] == "editProfile") {
       this.acrud.UpdateProfile(value, this.profileReturned, this.downloadURL)
       this.ProfileForm.reset();
-
     }
     else {
-      this.acrud.createProfile(value)
+      if(this.authService.isAdmin){
+        this.acrud.createProfile(value)
+      }
+      else if(this.authService.isTeacher){
+        this.acrud.createTeacherProfile(value)
+      }
+      else if(this.authService.isStudent){
+        this.acrud.createStudentProfile(value)
+      }
       this.ProfileForm.reset();
       //this.router.navigate(['']);
       let url = ""
       this.redirectTo(url)
     }
-
   }
-  redirectTo(url: any) {
 
+
+  redirectTo(url: any) {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate([url]));
     setTimeout(() => {

@@ -40,5 +40,4 @@ export class SignupStudentComponent implements OnInit {
             this.error = e
           })
   }
-
 }
