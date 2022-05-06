@@ -164,16 +164,16 @@ export class AuthService {
   logout() {
     return this.afAuth.auth.signOut().then(() => {
       this.user.next(null);
-
       localStorage.removeItem('userData');
+      localStorage.removeItem('isTeacher');
+      localStorage.removeItem('isStudent');
+      localStorage.removeItem('isAdmin');
       if (this.tokenExpirationTimer) {
         clearTimeout(this.tokenExpirationTimer);
       }
       this.tokenExpirationTimer = null;
-
       this.router.navigate(['/auth']);
     })
-
   }
 
   autoLogout(expirationDuration: number) {
@@ -245,7 +245,6 @@ export class AuthService {
         this.router.navigate(['auth']);
         this.showSuccess();
       })
-
   }
 
 
@@ -253,6 +252,11 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.isAdmin = true;
+        this.isStudent = false;
+        this.isTeacher = false;
+        localStorage.setItem('isAdmin', 'true');
+        localStorage.setItem('isStudent', 'false');
+        localStorage.setItem('isTeacher', 'false');
         this.logout()
         this.SendVerificationMail(); // Sending email verification notification, when new user registers
       })
@@ -262,6 +266,11 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.isStudent = true;
+        this.isAdmin = false;
+        this.isTeacher = false;
+        localStorage.setItem('isStudent', 'true');
+        localStorage.setItem('isTeacher', 'false');
+        localStorage.setItem('isAdmin', 'false');
         this.logout()
         this.SendVerificationMail(); // Sending email verification notification, when new user registers
       })
@@ -271,6 +280,11 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.isTeacher = true;
+        this.isAdmin = false;
+        this.isStudent = false;
+        localStorage.setItem('isTeacher', 'true');
+        localStorage.setItem('isStudent', 'false');
+        localStorage.setItem('isAdmin', 'false');
         this.logout()
         this.SendVerificationMail(); // Sending email verification notification, when new user registers
       })
@@ -287,7 +301,6 @@ export class AuthService {
           timeOut: 5000
         })
       })
-
   }
 
 
@@ -295,19 +308,13 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.LoginData.next(result)
-
-
         if (result.user.emailVerified !== true) {
           this.SendVerificationMail();
-
         }
         else {
           this.SetUserData(result.user);
         }
-
       })
-
-
   }
 
   isLoggedIn1() {

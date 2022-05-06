@@ -44,11 +44,12 @@ export class ProfileComponent implements OnInit {
   oldusername: any;
   usernamParam: string
   email: string
+  uid: string
 
   //variables para saber rol del usuario
-  isAdmin: string
-  isStudent: string;
-  isTeacher: string;
+  isAdmin: boolean;
+  isStudent: boolean;
+  isTeacher: boolean;
 
   constructor(
     private router: Router,
@@ -94,34 +95,36 @@ export class ProfileComponent implements OnInit {
     if (this.x[2] && this.x[3] == "editProfile") {
       this.getProfileData()
     }
-    
-    this.acrud.getProfile().subscribe(d => {
-      // console.log(d)
-      for(let i in d){
-        // console.log(i)
-        // console.log(d[i]['isStudent'])
-        localStorage.setItem('isStudent', d[i]['isStudent'].toString())
-        localStorage.setItem('isTeacher', d[i]['isTeacher'].toString())
-        localStorage.setItem('isAdmin', d[i]['isAdmin'].toString())
-      }
-    })
 
-    this.isAdmin = localStorage.getItem('isAdmin');
-    this.isStudent = localStorage.getItem('isStudent');
-    this.isTeacher = localStorage.getItem('isTeacher');
+    this.CreateProfile();
 
-    if(this.isAdmin == "true"){
-      this.CreateProfile();
-    }
-    else if(this.isTeacher == "true"){
-      this.CreateProfileTeacher();
-    }
-    else if(this.isStudent == "true"){
-      this.CreateProfileStudent();
-    }
     if (this.x[2] == null) {
       this.checkProfileExist()
     }    
+  }
+
+  getIsStudentStatus(){
+    this.acrud.getProfile().subscribe(d => {
+      let x = this.acrud.seprate(d)
+      this.profileReturned = x[0]
+      if (this.profileReturned.isStudent == "true") {
+        return true
+      }
+      else {
+        return false
+      }
+    })
+  }
+
+  getUid() {
+    return new Promise(res => {
+      this.authService.user.subscribe((user) => {
+        if (user) {
+          this.uid = user.uid
+        }
+        res(this.uid)
+      })
+    })
   }
 
   checkProfileExist() {

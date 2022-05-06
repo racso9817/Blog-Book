@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ACrudService } from 'src/app/Authentication/shared/acrud.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/Authentication/shared/auth.service';
+import { getuid } from 'process';
+import { Profile } from 'src/app/Authentication/shared/user.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-profile',
@@ -21,6 +24,12 @@ export class ViewProfileComponent implements OnInit {
   private userSub: Subscription;
   ismyself: boolean = false
 
+  profileReturned: any
+  uid: any
+  userInfo: any
+  isStudent: boolean
+  isTeacher: boolean
+  isAdmin: boolean
 
   pbcount: number = 0
   prcount: number = 0;
@@ -65,15 +74,7 @@ export class ViewProfileComponent implements OnInit {
             this.ismyself = false
             this.getPrfoileFromPublicDb()
           }
-        });
-        // console.log(this.ProfileData)
-        // this.acrud.getProfile().subscribe(d => {
-        //   console.log(d)
-        //   for(let i in d){
-        //     console.log(i)
-        //     console.log(d[i]['isStudent'])
-        //   }
-        // })
+        });        
   }
 
   getPrfoileFromPublicDb() {
