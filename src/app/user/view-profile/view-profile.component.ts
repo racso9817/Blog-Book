@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/Authentication/shared/auth.service';
 import { getuid } from 'process';
 import { Profile } from 'src/app/Authentication/shared/user.model';
 import { map } from 'rxjs/operators';
+import { CrudService } from 'src/app/Unauthenticated/shared/crud.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-view-profile',
@@ -27,9 +29,12 @@ export class ViewProfileComponent implements OnInit {
   profileReturned: any
   uid: any
   userInfo: any
+
+
   isStudent: boolean
   isTeacher: boolean
   isAdmin: boolean
+  data: any
 
   pbcount: number = 0
   prcount: number = 0;
@@ -37,9 +42,12 @@ export class ViewProfileComponent implements OnInit {
 
   constructor(
     private acrud: ACrudService,
+    private crud: CrudService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute,
+    private afs: AngularFirestore
+    ) { }
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
@@ -74,8 +82,19 @@ export class ViewProfileComponent implements OnInit {
             this.ismyself = false
             this.getPrfoileFromPublicDb()
           }
-        });        
+        });
+
+        this.getUserStatus()
+        console.log(this.isStudent)
   }
+
+  getUserStatus(){
+    this.acrud.getProfile().subscribe(d => {
+      let x = this.acrud.seprate(d)
+      this.isStudent = x[0].isStudent
+    })
+  }
+
 
   getPrfoileFromPublicDb() {
     this.isloading = true

@@ -254,11 +254,11 @@ export class AuthService {
         this.isAdmin = true;
         this.isStudent = false;
         this.isTeacher = false;
-        localStorage.setItem('isAdmin', 'true');
-        localStorage.setItem('isStudent', 'false');
-        localStorage.setItem('isTeacher', 'false');
         this.logout()
         this.SendVerificationMail(); // Sending email verification notification, when new user registers
+        localStorage.setItem('isAdmin','true')
+        localStorage.setItem('isStudent','false')
+        localStorage.setItem('isTeacher','false')
       })
   }
 
@@ -268,11 +268,11 @@ export class AuthService {
         this.isStudent = true;
         this.isAdmin = false;
         this.isTeacher = false;
+        this.logout()
+        this.SendVerificationMail(); // Sending email verification notification, when new user registers
         localStorage.setItem('isStudent', 'true');
         localStorage.setItem('isTeacher', 'false');
         localStorage.setItem('isAdmin', 'false');
-        this.logout()
-        this.SendVerificationMail(); // Sending email verification notification, when new user registers
       })
   }
 
@@ -282,11 +282,11 @@ export class AuthService {
         this.isTeacher = true;
         this.isAdmin = false;
         this.isStudent = false;
+        this.logout()
+        this.SendVerificationMail(); // Sending email verification notification, when new user registers
         localStorage.setItem('isTeacher', 'true');
         localStorage.setItem('isStudent', 'false');
         localStorage.setItem('isAdmin', 'false');
-        this.logout()
-        this.SendVerificationMail(); // Sending email verification notification, when new user registers
       })
   }
 

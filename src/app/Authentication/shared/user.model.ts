@@ -26,6 +26,8 @@ export class Profile {
   isStudent?: boolean
   isTeacher?: boolean
   isAdmin?: boolean
+  birthDate?: Date
+  tutorEmail?: string
 }
 
 

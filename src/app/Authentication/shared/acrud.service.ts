@@ -38,9 +38,9 @@ export class ACrudService {
   db_key: string;
   firestorekey: string;
   x: Observable<{ title: string; desc: string; created_date?: Date; imgurl: string; category: string; subcategory?: string; name: string; privacy: string; id: string; }[]>;
-  ProfieData: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean };
-  ProfileDataStudent: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean };
-  ProfileDataTeacher: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean };
+  ProfieData: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date };
+  ProfileDataStudent: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date; tutorEmail:string };
+  ProfileDataTeacher: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date };
   editedProfileData: { id: string; uname: string; desc: string; email: string; name: string; imgurl: Observable<string>; created_date?: Date; isProfileSet: boolean; };
   uname: any;
   id: any;
@@ -102,15 +102,9 @@ export class ACrudService {
       isProfileSet: true,
       isStudent: false,
       isTeacher:false,
-      isAdmin: true
+      isAdmin: true,
+      birthDate: value.birthDate,
     }
-    // this.separateName = this.ProfieData.name.split(" ")
-    // for(let i in this.separateName){
-    //   this.unifiedName += i + "-";
-    // }
-    // this.createPublicProfile(this.ProfieData, this.unifiedName)
-    // this.separateName = null
-    // this.unifiedName = ""
     this.createPublicProfile(this.ProfieData, this.ProfieData.uname)
     this.getUid().then(d => {
       this.http.post(
@@ -136,16 +130,10 @@ export class ACrudService {
       isProfileSet: true,
       isStudent: true,
       isTeacher:false,
-      isAdmin: false
+      isAdmin: false,
+      birthDate: value.birthDate,
+      tutorEmail: value.tutorEmail,
     }
-    // this.separateName = this.ProfileDataStudent.name.split(" ")
-    // for(let i in this.separateName){
-    //   this.unifiedName += i + "-";
-    // }
-    // console.log(this.unifiedName)
-    // this.createPublicProfile(this.ProfileDataStudent, this.unifiedName)
-    // this.separateName = null
-    // this.unifiedName = ""
     this.createPublicProfile(this.ProfileDataStudent, this.ProfileDataStudent.uname)
     this.getUid().then(d => {
       this.http.post(
@@ -171,15 +159,9 @@ export class ACrudService {
       isProfileSet: true,
       isStudent: false,
       isTeacher:true,
-      isAdmin: false
+      isAdmin: false,
+      birthDate: value.birthDate,
     }
-    // this.separateName = this.ProfileDataTeacher.name.split(" ")
-    // for(let i in this.separateName){
-    //   this.unifiedName += i + "-";
-    // }
-    // this.createPublicProfile(this.ProfileDataTeacher, this.unifiedName)
-    // this.separateName = null
-    // this.unifiedName = ""
     this.createPublicProfile(this.ProfileDataTeacher, this.ProfileDataTeacher.uname)
     this.getUid().then(d => {
       this.http.post(

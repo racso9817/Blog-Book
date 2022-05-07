@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from 'src/app/Unauthenticated/shared/crud.service';
 import { AuthService } from 'src/app/Authentication/shared/auth.service';
 import { ACrudService } from 'src/app/Authentication/shared/acrud.service';
 import { Profile } from 'src/app/Authentication/shared/user.model';
 import { toString } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -33,7 +34,10 @@ export class ProfileComponent implements OnInit {
     ],
     'name': [
       { type: 'required', message: 'Name is required.' },
-    ]
+    ],
+    'birthDate': [
+      { type: 'required', message: 'Birthdate is required.' },
+    ],
   };
 
   href: string;
@@ -50,6 +54,8 @@ export class ProfileComponent implements OnInit {
   isAdmin: boolean;
   isStudent: boolean;
   isTeacher: boolean;
+  //variable para saber si es menor de edad
+  underAge: boolean = false;
 
   constructor(
     private router: Router,
@@ -57,7 +63,8 @@ export class ProfileComponent implements OnInit {
     private firebaseService: CrudService,
     private fb: FormBuilder,
     private authService: AuthService,
-    private acrud: ACrudService
+    private acrud: ACrudService,
+    private afs: AngularFirestore
   ) { }
 
   detectFiles(event) {
@@ -71,7 +78,6 @@ export class ProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = e => this.imageSrc = reader.result;
       reader.readAsDataURL(file);
-
     }
     this.firebaseService.uploadFile()
     this.uploadPercent = this.firebaseService.uploadPercent;
@@ -96,24 +102,11 @@ export class ProfileComponent implements OnInit {
       this.getProfileData()
     }
 
-    this.CreateProfile();
-
+    this.CreateProfile()
+    
     if (this.x[2] == null) {
       this.checkProfileExist()
-    }    
-  }
-
-  getIsStudentStatus(){
-    this.acrud.getProfile().subscribe(d => {
-      let x = this.acrud.seprate(d)
-      this.profileReturned = x[0]
-      if (this.profileReturned.isStudent == "true") {
-        return true
-      }
-      else {
-        return false
-      }
-    })
+    }
   }
 
   getUid() {
@@ -159,6 +152,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  //crear un perfil general para todos los usuarios, luego debemos clasificar si es estudiante o profesor
   CreateProfile() {
     this.ProfileForm = this.fb.group({
       imgurl: ['', Validators.required],
@@ -166,8 +160,27 @@ export class ProfileComponent implements OnInit {
       desc: [''],
       name: ['', Validators.required],
       uname: ['', Validators.required,],
+      birthDate: ['', Validators.required],
     });
+    //validate age is over 18
+    this.ProfileForm.get('birthDate').valueChanges.subscribe(value => {
+      let today = new Date()
+      let birthDate = new Date(value)
+      let age = today.getFullYear() - birthDate.getFullYear()
+      if (age < 18) {
+        this.ProfileForm.get('birthDate').setErrors({ 'age': true })
+        this.underAge = true
+        this.ProfileForm.addControl('tutorEmail', new FormControl('', Validators.required))
+        console.log("age is under 18")
+      }
+      else {
+        this.underAge = false
+        this.ProfileForm.removeControl('tutorEmail')
+        console.log("age is over 18")
+      }
+    })      
   }
+  //crear un perfil general para todos los usuarios, luego debemos clasificar si es estudiante o profesor
 
   CreateProfileStudent() {
     this.ProfileForm = this.fb.group({
@@ -239,9 +252,9 @@ export class ProfileComponent implements OnInit {
         this.acrud.createStudentProfile(value)
       }
       this.ProfileForm.reset();
-      //this.router.navigate(['']);
-      let url = ""
-      this.redirectTo(url)
+      // this.router.navigate(['']);
+      // let url = ""
+      // this.redirectTo(url)
     }
   }
 
@@ -253,4 +266,5 @@ export class ProfileComponent implements OnInit {
       window.location.href = "";
     }, 1000)
   }
+
 }

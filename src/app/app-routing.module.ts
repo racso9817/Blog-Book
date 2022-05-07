@@ -17,11 +17,12 @@ import { SoporteComponent } from './Unauthenticated/pages/soporte/soporte.compon
 import { TrabajaconnosotrosComponent } from './Unauthenticated/pages/trabajaconnosotros/trabajaconnosotros.component';
 import { SignupStudentComponent } from './Authentication/signup-student/signup-student.component';
 import { SignupTeacherComponent } from './Authentication/signup-teacher/signup-teacher.component';
+import { MainViewComponent } from './user/main-view/main-view.component';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'home/:id', component: UPostDetailComponent ,pathMatch: 'full'},
   { path: 'featured/:id', component: UPostDetailComponent ,pathMatch: 'full'},
@@ -47,8 +48,10 @@ const routes: Routes = [
 
   {path: 'signup-student', component: SignupStudentComponent},
   {path:'signup-teacher', component: SignupTeacherComponent},
+
+  {path: 'main', component: MainViewComponent, canActivate: [AuthGuard]},
   
-  {path: '**/undefined', redirectTo: '/home'},
+  //{path: '**/undefined', redirectTo: '/home'},
 ];
 
 @NgModule({

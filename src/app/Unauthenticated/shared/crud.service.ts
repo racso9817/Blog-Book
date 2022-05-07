@@ -5,6 +5,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,8 @@ export class CrudService {
   constructor(
     private router: Router,
     private afStorage: AngularFireStorage,
-
     private afs: AngularFirestore,
-
+    private http: HttpClient,
   ) { }
 
   handleError(error: any) {
@@ -42,19 +42,17 @@ export class CrudService {
 
   getdata(data) {
     this.selectedFile = data
-
   }
-
 
   get_public_post() {
     return this.afs.collection('normal-users').snapshotChanges().pipe(catchError(this.handleError))
-
   }
 
   sendUidandUname(uname, id) {
     this.uid = id
     this.uname = uname
   }
+
   createUser(value: UPost) {
     return this.afs.collection(`normal-users`).add({
       title: value.title,
@@ -68,17 +66,12 @@ export class CrudService {
       uid: this.uid,
       uname: this.uname
     })
-
   }
-
 
   uploadFile() {
     const myTest = this.afs.collection('test').ref.doc();
     const file = this.selectedFile;
-
-
     this.filepath = "UauthUsers"
-
     const filePath = `${this.filepath}/${this.uname}/${file.name}`;
     const fileRef = this.afStorage.ref(filePath);
     const task = this.afStorage.upload(filePath, file);
@@ -88,13 +81,9 @@ export class CrudService {
         fileRef.getDownloadURL().toPromise().then((url) => {
           this.downloadURL = url;
           this.downloadurlchange.next(this.downloadURL)
-
-
-
         }).catch(err => { console.log(err) });
       })
-    )
-      .subscribe()
+    ).subscribe()
   }
 }
 

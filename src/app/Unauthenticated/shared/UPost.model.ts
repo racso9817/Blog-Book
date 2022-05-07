@@ -2,7 +2,6 @@ export class UPost {
     title: string;
     desc: string;
     created_date?: Date;
-
     imgurl: string;
     category: string;
     subcategory?: string;
