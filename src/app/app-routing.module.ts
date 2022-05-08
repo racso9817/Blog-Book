@@ -19,6 +19,7 @@ import { SignupStudentComponent } from './Authentication/signup-student/signup-s
 import { SignupTeacherComponent } from './Authentication/signup-teacher/signup-teacher.component';
 import { MainViewComponent } from './user/main-view/main-view.component';
 import { UploadDocumentsComponent } from './user/upload-documents/upload-documents.component';
+import { ACrudService } from './Authentication/shared/acrud.service';
 
 
 
@@ -50,8 +51,7 @@ const routes: Routes = [
   {path: 'signup-student', component: SignupStudentComponent},
   {path:'signup-teacher', component: SignupTeacherComponent},
 
-  {path: 'main', component: MainViewComponent, canActivate: [AuthGuard]},
-  {path: 'subirDocumentos', component: UploadDocumentsComponent, canActivate: [AuthGuard]},
+  {path: 'main', component: MainViewComponent, canActivate: [AuthGuard]},  
   
   //{path: '**/undefined', redirectTo: '/home'},
 ];
@@ -60,4 +60,22 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes,{scrollPositionRestoration: 'enabled',useHash: true })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  
+  constructor(
+    public acrud: ACrudService
+  ){}
+
+  ngOnInit(){
+    this.acrud.getProfile().subscribe(data => {
+      let x = this.acrud.seprate(data);
+      if(data[0].isProfileSet){
+        
+      }
+      if(data[0].isTeacher){
+        routes.push({path: 'subirDocumentos', component: UploadDocumentsComponent, canActivate: [AuthGuard]},)
+      }
+    })
+  }
+
+}
