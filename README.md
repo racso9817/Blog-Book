@@ -6,23 +6,13 @@
 - ng serve
 
 ## TODO List
-- Cambiar texto de las preguntas [x]
-- Revisar gramática y ortografía [x]
-- En trabaja con nosotros mover última línea a la última pregunta [x]
-- Revisar banner del inicio para que se vea bien en todas las pantallas [x]
-- Soporte para diferentes pantallas, soporte para celulares []
-- Hacer un footer, revisar los estilos del footer actual y cambiarlos (falta soporte para celulares) [x] 
-- Hacer pestaña de planes y cursos(standby) [ ]
-- Revisar el routing en typescript para poner nombres adecuados(Importante) [ ]
-- Modificar tamaño del carousel del inicio (falta revision de oscar) [x]
-- Modificar el estilo del login (falta imagen de fondo) [x]
-- Modificar estilo de soporte (falta revision de oscar) [x]
-- Enlazar formulario de soporte con correo real [ ]
-- Construir lógica para acceder con el login []
-- Agrega mas cosas a sobre nosotros []
-- Al dar click a profesor destacado llevar a descripción del profesor y las clases que da []
+
 
 ## IMPORTANT TODOs:
-- Crear una función que recorra el objeto json en RTDB y revisar los valores booleanos de: isAdmin, isStudent, isTeacher. Si son true definir los campos que deben aparecer en el formulario para creación del perfil.
 - Revisar que las imagenes se guarden dentro de la carpeta UauthUsers/[username]/profile para la foto de perfil, cedula y título en caso de ser profesor. UauthUsers/[username]/posts para las imagenes de los posts.
-- Adicionar un correo electronico si los estudiantes son menores de edad para notificar a los representantes
+- Hacer el componente de subir documentos para los profesores.
+- Hacer que el profesor tenga la opcion de enviar correos a los alumnos subscritos a sus clases (Nota:Si tiene tutor, enviar el correo al tutor también).
+- En el componente de mainview, a los estudiantes que les aparezcan los cursos. Y a los profesores que aparezca la opción de crear cursos.
+- Agregar la barra de busqueda con su predeterminado filtro para buscar los cursos.
+- Desarrollar forma para que los estudiantes se puedan suscribir a un curso.
+- Agregar para revisar manualmente documentos subidos por el profesor.

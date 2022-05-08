@@ -37,7 +37,7 @@ export class MainViewComponent implements OnInit {
       }
       if(this.isTeacher){
         this.message = "Bienvenido profesor"
-        this.allDocumentsUploadedVerification()
+        // this.allDocumentsUploadedVerification()
       }
     })
   }
