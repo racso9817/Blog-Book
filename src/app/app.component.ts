@@ -32,9 +32,7 @@ export class AppComponent implements OnInit {
   title = 'write-your-heart-out';
 
 
-  ngOnInit() {
-
-
+  ngOnInit() {   
 
     if (this.isloading) {
       window.onscroll = function () { myFunction() };
@@ -74,27 +72,22 @@ export class AppComponent implements OnInit {
         this.acrud.getProfileFromUid(user.uid).subscribe(
           d => {
             let x2: {} = {}
-
             let x = this.acrud.seprate(d)
-
-
             this.ProfieData = x[0]
             if (this.ProfieData) {
               this.isprofileSet = this.ProfieData.isProfileSet
               this.username = this.ProfieData.uname
-
             }
-
           }
         )
       }
-
-
+      else {
+        this.router.navigate(['/home'])
+      }
     });
-
     this.getAllPosts()
-
   }
+
   getAllPosts() {
     this.isloading = true
     this.acrud.getAllData()

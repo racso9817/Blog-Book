@@ -1,1 +1,11 @@
-<p>{{message}}</p>
+<div *ngIf="isStudent">
+    {{message}}
+</div>
+<div *ngIf="isTeacher">
+    {{message}}
+    <!-- Si el profesor no ha subido todos los documentos requeridos -->
+    <div *ngIf="!allDocumentsUploaded">
+        Debe ingresar todos los documentos requeridos
+        <div routerLink="/subirDocumentos"></div>
+    </div>
+</div>

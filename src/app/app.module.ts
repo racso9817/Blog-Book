@@ -46,6 +46,7 @@ import { SoporteComponent } from './Unauthenticated/pages/soporte/soporte.compon
 import { SignupTeacherComponent } from './Authentication/signup-teacher/signup-teacher.component';
 import { SignupStudentComponent } from './Authentication/signup-student/signup-student.component';
 import { MainViewComponent } from './user/main-view/main-view.component';
+import { UploadDocumentsComponent } from './user/upload-documents/upload-documents.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { MainViewComponent } from './user/main-view/main-view.component';
     SignupTeacherComponent,
     SignupStudentComponent,
     MainViewComponent,
+    UploadDocumentsComponent,
 
     
     

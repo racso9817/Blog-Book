@@ -15,6 +15,8 @@ export class MainViewComponent implements OnInit {
 
   //si es profesor, se debe verificar que ha subido todos los documentos
   allDocumentsUploaded: boolean = false
+  cedulaUploaded: boolean = false
+  tituloUploaded: boolean = false
 
   message: string
 
@@ -33,11 +35,17 @@ export class MainViewComponent implements OnInit {
       if(this.isStudent){
         this.message = "Bienvenido estudiante"
       }
+      if(this.isTeacher){
+        this.message = "Bienvenido profesor"
+        this.allDocumentsUploadedVerification()
+      }
     })
   }
 
   allDocumentsUploadedVerification(){  //verificar si el profesor completó todos los documentos requeridos
-
+    if(this.isTeacher && !this.cedulaUploaded && !this.tituloUploaded){
+      this.allDocumentsUploaded = false
+    }
   }
 
 }
