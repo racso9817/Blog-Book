@@ -36,38 +36,45 @@
             </div>
             <div class="col-md-8 col-xs-12 col-md-pull-4">
                 <h2>
-                    Name : {{ProfileData.name}}
+                    Name: {{ProfileData.name}}
                 </h2>
 
-                <h5>
-                    <b>Username : </b> {{ProfileData.uname}}
-                </h5>
+                <!-- <h5>
+                    <b>Username: </b> {{ProfileData.uname}}
+                </h5> -->
+
+                <h6 *ngIf="ProfileData.isTeacher">
+                    <b>Profesor</b>
+                </h6>
+                <h6 *ngIf="ProfileData.isStudent">
+                    <b>Estudiante</b>
+                </h6>
 
                 <p>
-                    <b>Email : </b> {{ProfileData.email}}
+                    <b>Email: </b> {{ProfileData.email}}
+                </p>
+
+                <p *ngIf="ProfileData.tutorEmail">
+                    <b>Tutor Email: </b> {{ProfileData.tutorEmail}}
+                </p>
+
+                <p>
+                    <b>Año de nacimiento: </b>{{ProfileData.birthDate}}
                 </p>
 
                 <p>
                     <b>Bio : </b> {{ProfileData.desc}}
                 </p>
             </div>
-
-
         </div>
-
-
     </div>
-
-
 </div>
 
 
 <div class="col-md-9 col-sm-12 ">
     <ng-template #loading>
-
         <div *ngIf="isloading" class="loading-text">
             <app-loading-spinner></app-loading-spinner>
         </div>
-
     </ng-template>
 </div>

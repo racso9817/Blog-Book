@@ -67,7 +67,6 @@ export class ViewProfileComponent implements OnInit {
             this.acrud.getProfile().subscribe(d => {
               let x = this.acrud.seprate(d)
               this.myuname = x[0].uname
-              // console.log(this.myuname)
               if (this.myuname == this.unameParam) {
                 this.ismyself = true;
                 this.getPrfoileFromPersonalDb()
@@ -83,18 +82,7 @@ export class ViewProfileComponent implements OnInit {
             this.getPrfoileFromPublicDb()
           }
         });
-
-        this.getUserStatus()
-        console.log(this.isStudent)
   }
-
-  getUserStatus(){
-    this.acrud.getProfile().subscribe(d => {
-      let x = this.acrud.seprate(d)
-      this.isStudent = x[0].isStudent
-    })
-  }
-
 
   getPrfoileFromPublicDb() {
     this.isloading = true
