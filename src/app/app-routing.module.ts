@@ -18,6 +18,7 @@ import { TrabajaconnosotrosComponent } from './Unauthenticated/pages/trabajaconn
 import { SignupStudentComponent } from './Authentication/signup-student/signup-student.component';
 import { SignupTeacherComponent } from './Authentication/signup-teacher/signup-teacher.component';
 import { MainViewComponent } from './user/main-view/main-view.component';
+import { UploadDocumentsComponent } from './user/upload-documents/upload-documents.component';
 
 
 
@@ -50,6 +51,7 @@ const routes: Routes = [
   {path:'signup-teacher', component: SignupTeacherComponent},
 
   {path: 'main', component: MainViewComponent, canActivate: [AuthGuard]},
+  {path: 'subirDocumentos', component: UploadDocumentsComponent, canActivate: [AuthGuard]},
   
   //{path: '**/undefined', redirectTo: '/home'},
 ];

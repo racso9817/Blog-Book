@@ -43,7 +43,10 @@ export class MainViewComponent implements OnInit {
   }
 
   allDocumentsUploadedVerification(){  //verificar si el profesor completó todos los documentos requeridos
-    if(this.isTeacher && !this.cedulaUploaded && !this.tituloUploaded){
+    if(this.isTeacher && this.cedulaUploaded && this.tituloUploaded){
+      this.allDocumentsUploaded = true
+    }
+    else{
       this.allDocumentsUploaded = false
     }
   }
