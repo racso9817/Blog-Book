@@ -49,6 +49,9 @@ export class UCreatePostComponent implements OnInit {
     ],
     'name': [
       { type: 'required', message: 'Name is required.' },
+    ],
+    'precio': [
+      { type: 'required', message: 'Precio is required.' },
     ]
   };
   constructor(
@@ -133,6 +136,7 @@ export class UCreatePostComponent implements OnInit {
       category: [this.selected, Validators.required],
       subcategory: ['  ', Validators.required],
       name: ['', Validators.required],
+      precio: ['', Validators.required],
       privacy: ["true"],
 
     });

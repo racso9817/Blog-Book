@@ -61,6 +61,7 @@ export class CrudService {
       category: value.category,
       subcategory: value.subcategory,
       name: value.name,
+      precio: value.precio,
       created_date: this.currentDate,
       imgurl: this.downloadURL,
       uid: this.uid,

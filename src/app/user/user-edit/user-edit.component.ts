@@ -58,6 +58,9 @@ export class UserEditComponent implements OnInit {
     ],
     'name': [
       { type: 'required', message: 'Name is required.' },
+    ],
+    'precio': [
+      { type: 'required', message: 'Precio requerido.' },
     ]
   };
 
@@ -208,6 +211,7 @@ export class UserEditComponent implements OnInit {
       category: [this.selected, Validators.required],
       subcategory: ['  ', Validators.required],
       name: ['', Validators.required],
+      precio: ['', Validators.required],
       privacy: ["true"],
     });
   }

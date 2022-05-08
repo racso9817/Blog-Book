@@ -1,5 +1,112 @@
 <div *ngIf="isStudent">
     {{message}}
+
+    <div class="row">
+        <div class="col-md-5 col-xs-12 col-md-push-7">
+
+            <div class="search-hero search-input-wrapper fadeInUp hidden-md hidden-lg">
+                <label for="search"></label>
+                <input class="form-control" type="text" name="search" id="search" [(ngModel)]="searchText" autocomplete="off" placeholder="   Search by Title or Author name">
+                <div class="search-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg></div>
+            </div>
+
+            <div *ngIf="(featuredPost  | filter:searchText ) as result">
+                <h3 class="Featured">Featured Posts</h3>
+                <div *ngIf="!isFetching && result?.length>0">
+
+
+
+                    <div class="card row card-featured" *ngFor="let i of result ;let c= index ">
+                        <a [routerLink]="['/featured',c]">
+                            <div class="img img-col">
+                                <img src="{{i.imgurl}} " style="width:100%" class="img-responsive" alt="">
+                            </div>
+                            <div class="title main-content">
+                                <h3 class="title">{{i.title}}</h3>
+                                <p [innerHTML]="i.desc | noSanitize"></p>
+
+                                <div class="author-date">
+                                    <p class="author-name">By {{i.name}}</p>
+                                    <p class="date">On {{i.created_date | date:'mediumDate' }}</p>
+                                </div>
+
+                                <div class="likecomment">
+                                    <i style="font-size:21px" class="fa fa-heart"><span>{{i.likestatus.count}}</span></i>
+                                    <i style='font-size:21px' class='fa fa-comment-o'>{{commenData[c].length}}</i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="text-left no-result">
+                    <h4 *ngIf="result.length === 0">No Results Found</h4>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12 col-md-pull-5">
+
+            <div class="search-hero search-input-wrapper fadeInUp hidden-xs hidden-sm">
+                <label for="search1"></label>
+                <input class="form-control" type="text" id="search1" name="search1" [(ngModel)]="searchText" autocomplete="off" placeholder="   Search by Title or Author name">
+                <div class="search-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg></div>
+            </div>
+            <div *ngIf="(sorted | filter:searchText) as result ">
+                <h3 class="Featured hidden-md hidden-lg">Latest Posts</h3>
+                <div *ngIf="!isFetching && result?.length>0">
+                    <div class="card row" *ngFor="let i of result;let c= index ">
+                        <a [routerLink]="[c]">
+
+                            <div class="col-md-4 col-xs-12 img-col col-md-push-8">
+                                <img src="{{ i.imgurl }} " alt="Avatar " style="width: 100%;" class="img-responsive" alt="img" />
+                            </div>
+                            <div class="col-md-8 col-xs-12 main-content col-md-pull-4">
+                                <h2 class="title">
+                                    {{i.title }}
+                                </h2>
+
+                                <p class="desc desc1" [innerHTML]="i.desc| noSanitize"></p>
+                            </div>
+                            <div class="author-date col-md-6 col-xs-12">
+                                <p class="author-name">
+                                    By : {{i.name }}
+                                </p>
+                                <p class="date">
+                                    On : {{i.created_date | date }}
+                                </p>
+                            </div>
+                        </a>
+                    
+                </div>
+                <div class="loading-text text-left no-result">
+                    <h4 *ngIf="result.length === 0">No Results Found</h4>
+                </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div *ngIf="isFetching && !error" class="loading-text">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+
+        <div *ngIf="error && !isFetching" class="error-text">
+            <h4>{{error}}</h4>
+
+        </div>
+    </div> 
+
+
+
+
 </div>
 <div *ngIf="isTeacher">
     {{message}}
@@ -9,5 +116,108 @@
         <a routerLink="/subirDocumentos">aquí</a>
     </div> -->
 
+    <div class="container">
+        <div class="col-md-10 col-sm-12 col-xs-12 center-block">
+            <div class="alert alert-danger" *ngIf="error">
+                <p>{{ error }}</p>
+            </div>
+            <div *ngIf="isloading" style="text-align: center;" class="loading-text">
+                <app-loading-spinner></app-loading-spinner>
+            </div>
+            <form *ngIf="!isloading" class="create-form" [formGroup]="exampleForm" novalidate (ngSubmit)="onSubmit(exampleForm.value)">
+                <div class="col-md-4 col-sm-3 col-xs-12">
+                    <input type="file" multiple (change)="detectFiles($event)" accept="image/x-png,image/gif,image/jpeg" class="form-control" formControlName="imgurl">
+                    <img id="blah" height="200" width="200" class="img-rounded" [src]="imageSrc || 'http://placehold.it/180'" alt="your image" />
+                   
+                </div>
+                <br>
+                <div class=" col-md-8 col-sm-9 col-xs-12">
+                    <div class="form-group">
+                        <label for="comment">Nombre del Curso:</label>
+                        <div class="input-style">
+                            <input placeholder="Titulo" class="form-control" formControlName="title">
+                        </div>
+                        <ng-container *ngFor="let validation of validation_messages.title">
+                            <div class="help-block has-error" *ngIf="exampleForm.get( 'title').hasError(validation.type) && (exampleForm.get( 'title').dirty || exampleForm.get( 'title').touched)">
+                                {{validation.message}}</div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Descripción del curso</label>
+                        <textarea class="form-control" rows="5" id="comment" formControlName="desc"></textarea>
+                        <ng-container *ngFor="let validation of validation_messages.desc">
+                            <div class="help-block has-error" *ngIf="exampleForm.get( 'desc').hasError(validation.type) && (exampleForm.get( 'desc').dirty || exampleForm.get( 'desc').touched)">
+                                {{validation.message}}</div>
+                            <div class="help-block has-error" *ngIf="exampleForm.get( 'desc').hasError( 'minlength') && ( exampleForm.get( 'desc').touched)">
+                                Minimun 50 characters required in description</div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Categoría de la Clase</label>
+                        <select class="form-control" formControlName="category" #t (change)="onChange(t.value)">
+                            <option *ngFor="let value of values">{{value}} </option>
+                        </select>
     
+                        <ng-container *ngFor="let validation of validation_messages.category">
+                            <div class="help-block has-error" *ngIf="exampleForm.get( 'category').hasError(validation.type) && (exampleForm.get( 'category').dirty || exampleForm.get( 'category').touched)">
+                                {{validation.message}}</div>
+                        </ng-container>
+    
+                    </div>
+                    <div class="form-group">
+                        <div class="input-style" *ngIf="selected=='Other'">
+                            <input placeholder="Other category" class="form-control" formControlName="subcategory">
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="comment">Ingresar su Nombre:</label>
+                        <div class="input-style">
+                            <input placeholder="Nombre" class="form-control" formControlName="name">
+                        </div>
+                        <ng-container *ngFor="let validation of validation_messages.name">
+                            <div class="help-block has-error" *ngIf="exampleForm.get( 'name').hasError(validation.type) && (exampleForm.get( 'name').dirty || exampleForm.get( 'name').touched)">
+                                {{validation.message}}</div>
+                        </ng-container>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment">Ingrese el precio del curso</label>
+                        <div class="input-style">
+                            <input placeholder="Precio del curso $5-$20" class="form-control" formControlName="precio">
+                        </div>
+                        <ng-container *ngFor="let validation of validation_messages.name">
+                            <div class="help-block has-error" *ngIf="exampleForm.get( 'precio').hasError(validation.type) && (exampleForm.get( 'precio').dirty || exampleForm.get( 'precio').touched)">
+                                {{validation.message}}</div>
+                        </ng-container>
+                    </div>
+    
+                    <div *ngIf="isAuthenticated" class="form-group">
+                        <label for="comment">Keep your post Public:</label>
+                        <div class="input-style">
+                            <label class="md-check">
+                                <input type="radio" value="true" name="privacy" formControlName="privacy" checked="true">
+                                Yes keep my post Public
+                            </label>
+                            <br>
+                            <label class="md-check">
+                                <input type="radio" value="false" name="privacy" formControlName="privacy">
+                                No keep it private
+                            </label>
+                        </div>
+                        <ng-container *ngFor="let validation of validation_messages.title">
+                            <div class="help-block has-error" *ngIf="exampleForm.get( 'title').hasError(validation.type) && (exampleForm.get( 'title').dirty || exampleForm.get( 'title').touched)">
+                                {{validation.message}}</div>
+                        </ng-container>
+                    </div>
+                    <div class="row submit-button-container">
+                        <div class="col-md-4">
+                            <button class="btn btn-primary submit-button" color="primary" type="submit" [disabled]="!exampleForm.valid">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    
+        </div>
+    </div>
 </div>

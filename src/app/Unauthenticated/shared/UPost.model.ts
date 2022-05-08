@@ -6,6 +6,7 @@ export class UPost {
     category: string;
     subcategory?: string;
     name: string;
+    precio: string;
     privacy: string;
     likecount?: number
     uid: string

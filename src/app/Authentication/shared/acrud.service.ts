@@ -37,7 +37,7 @@ export class ACrudService {
   PostDataForLikedByUser = new BehaviorSubject<any>(null);
   db_key: string;
   firestorekey: string;
-  x: Observable<{ title: string; desc: string; created_date?: Date; imgurl: string; category: string; subcategory?: string; name: string; privacy: string; id: string; }[]>;
+  x: Observable<{ title: string; desc: string; created_date?: Date; imgurl: string; category: string; subcategory?: string; name: string; precio: string; privacy: string; id: string; }[]>;
   ProfieData: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date };
   ProfileDataStudent: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date; tutorEmail:string };
   ProfileDataTeacher: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date };
@@ -204,6 +204,7 @@ export class ACrudService {
       category: value.category,
       subcategory: value.subcategory,
       name: value.name,
+      precio: value.precio,
       created_date: this.ucrud.currentDate,
       imgurl: this.ucrud.downloadURL,
       privacy: value.privacy,
@@ -327,6 +328,7 @@ export class ACrudService {
       category: formvalue.category,
       subcategory: formvalue.subcategory,
       name: formvalue.name,
+      precio: formvalue.precio,
       imgurl: imgurl,
       privacy: formvalue.privacy,
       created_date: this.ucrud.currentDate,

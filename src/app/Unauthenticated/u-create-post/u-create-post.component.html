@@ -1,10 +1,5 @@
 <div class="container">
-
-
-
-
     <div class="col-md-10 col-sm-12 col-xs-12 center-block">
-
         <div class="alert alert-danger" *ngIf="error">
             <p>{{ error }}</p>
         </div>
@@ -12,11 +7,9 @@
             <app-loading-spinner></app-loading-spinner>
         </div>
         <form *ngIf="!isloading" class="create-form" [formGroup]="exampleForm" novalidate (ngSubmit)="onSubmit(exampleForm.value)">
-
             <div class="col-md-4 col-sm-3 col-xs-12">
                 <input type="file" multiple (change)="detectFiles($event)" accept="image/x-png,image/gif,image/jpeg" class="form-control" formControlName="imgurl">
                 <img id="blah" height="200" width="200" class="img-rounded" [src]="imageSrc || 'http://placehold.it/180'" alt="your image" />
-
                 <div class="col-xs-2 percantage">
                     <h3>{{ uploadPercent | async }}</h3>
                 </div>
@@ -30,8 +23,6 @@
             </div>
             <br>
             <div class=" col-md-8 col-sm-9 col-xs-12">
-
-
                 <div class="form-group">
                     <label for="comment">Title:</label>
                     <div class="input-style">
@@ -42,8 +33,6 @@
                             {{validation.message}}</div>
                     </ng-container>
                 </div>
-
-
                 <div class="form-group">
                     <label for="comment">Description:</label>
                     <textarea class="form-control" rows="5" id="comment" formControlName="desc"></textarea>
@@ -52,10 +41,8 @@
                             {{validation.message}}</div>
                         <div class="help-block has-error" *ngIf="exampleForm.get( 'desc').hasError( 'minlength') && ( exampleForm.get( 'desc').touched)">
                             Minimun 50 characters required in description</div>
-
                     </ng-container>
                 </div>
-
                 <div class="form-group">
                     <label for="sel1">Category list:</label>
                     <select class="form-control" formControlName="category" #t (change)="onChange(t.value)">
@@ -67,14 +54,12 @@
                             {{validation.message}}</div>
                     </ng-container>
 
-
                 </div>
                 <div class="form-group">
                     <div class="input-style" *ngIf="selected=='Other'">
                         <input placeholder="Other category" class="form-control" formControlName="subcategory">
                     </div>
                 </div>
-
 
                 <div class="form-group">
                     <label for="comment">Name:</label>
