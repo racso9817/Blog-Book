@@ -51,7 +51,8 @@ const routes: Routes = [
   {path: 'signup-student', component: SignupStudentComponent},
   {path:'signup-teacher', component: SignupTeacherComponent},
 
-  {path: 'main', component: MainViewComponent, canActivate: [AuthGuard]},  
+  {path: 'main', component: MainViewComponent, canActivate: [AuthGuard]},
+  {path: 'subirDocumentos', component: UploadDocumentsComponent, canActivate: [AuthGuard]}
   
   //{path: '**/undefined', redirectTo: '/home'},
 ];
@@ -62,20 +63,17 @@ const routes: Routes = [
 })
 export class AppRoutingModule { 
   
-  constructor(
-    public acrud: ACrudService
-  ){}
+  // constructor(
+  //   public acrud: ACrudService
+  // ){}
 
-  ngOnInit(){
-    this.acrud.getProfile().subscribe(data => {
-      let x = this.acrud.seprate(data);
-      if(data[0].isProfileSet){
-        
-      }
-      if(data[0].isTeacher){
-        routes.push({path: 'subirDocumentos', component: UploadDocumentsComponent, canActivate: [AuthGuard]},)
-      }
-    })
-  }
-
+  // ngOnInit(){
+  //   this.acrud.getProfile().subscribe(data => {
+  //     let x = this.acrud.seprate(data);
+  //     if(data[0].isTeacher){
+  //       routes.push({path: 'subirDocumentos', component: UploadDocumentsComponent, canActivate: [AuthGuard]})
+  //     }
+  //   })
+    // console.log(routes)
 }
+
