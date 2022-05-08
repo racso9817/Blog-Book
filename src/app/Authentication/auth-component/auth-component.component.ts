@@ -98,7 +98,7 @@ export class AuthComponentComponent implements OnInit {
       this.isPorfileset = x[0];
       this.isLoading = false
       if (this.isPorfileset) {
-        this.router.navigate(['']);
+        this.router.navigate(['/main']);
       }
       else {
         this.router.navigate(['myprofile'])
