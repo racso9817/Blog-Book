@@ -1,29 +1,31 @@
 <div class="row" *ngIf="!isloading;else loading">
     <div class="col-md-3 col-sm-12" *ngIf="isAuthenticated && ismyself">
         <div class="list-group">
-            <a class="list-group-item" routerLinkActive="active" [routerLink]="['/myprofile',unameParam]">Profile</a>
-            <a class="list-group-item" [routerLink]="['/myprofile',username,'editProfile']">Edit Profile</a>
+            <a class="list-group-item" routerLinkActive="active" [routerLink]="['/myprofile',unameParam]">Perfil</a>
+            <a class="list-group-item" [routerLink]="['/myprofile',username,'editProfile']">Editar Perfil</a>
 
-            <a class="list-group-item" [routerLink]="['/myposts', 'public']">Public Posts
+            <!-- <a class="list-group-item" [routerLink]="['/myposts', 'public']">Public Posts
                 <span class="count-post"> ({{pbcount}})</span></a>
 
             <a class="list-group-item" [routerLink]="['/myposts', 'private']">Private Posts
-                <span class="count-post"> ({{prcount}})</span></a>
-            <a class="list-group-item" [routerLink]="['/myposts']">All Posts
+                <span class="count-post"> ({{prcount}})</span></a> -->
+            <a *ngIf="isTeacher" class="list-group-item" [routerLink]="['/myposts']">Mis publicaciones
                 <span class="count-post"> ({{allcount}})</span></a>
+                <a *ngIf="isStudent" class="list-group-item" [routerLink]="['/mycourses']">Mis cursos
+                    <span class="count-post"> ({{allcount}})</span></a>
         </div>
     </div>
 
     <div class="col-md-3 col-sm-12" *ngIf="!isAuthenticated || !ismyself">
         <div class="list-group">
-            <a class="list-group-item" routerLinkActive="active" [routerLink]="['/myprofile',unameParam]">Profile</a>
+            <a class="list-group-item" routerLinkActive="active" [routerLink]="['/myprofile',unameParam]">Perfil</a>
 
-            <a class="list-group-item" routerLinkActive="active" [routerLink]="['publicposts']">Public Posts
+            <!-- <a class="list-group-item" routerLinkActive="active" [routerLink]="['publicposts']">Public Posts
                 <span class="count-post"> ({{pbcount}})</span>
             </a>
             <a class="list-group-item disabled" [routerLink]="['']">Private Posts
-                <span class="count-post"> ({{prcount}})</span></a>
-            <a class="list-group-item disabled" [routerLink]="['']">All Posts
+                <span class="count-post"> ({{prcount}})</span></a> -->
+            <a *ngIf="isTeacher" class="list-group-item disabled" [routerLink]="['']">Todas las publicaciones
                 <span class="count-post"> ({{allcount}})</span></a>
         </div>
     </div>
@@ -36,7 +38,7 @@
             </div>
             <div class="col-md-8 col-xs-12 col-md-pull-4">
                 <h2>
-                    Name: {{ProfileData.name}}
+                    Nombre: {{ProfileData.name}}
                 </h2>
 
                 <!-- <h5>
@@ -62,8 +64,8 @@
                     <b>Año de nacimiento: </b>{{ProfileData.birthDate}}
                 </p>
 
-                <p>
-                    <b>Bio : </b> {{ProfileData.desc}}
+                <p *ngIf="ProfileData.desc">
+                    <b>Descripción: </b> {{ProfileData.desc}}
                 </p>
             </div>
         </div>

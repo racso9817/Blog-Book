@@ -30,12 +30,12 @@ export class ViewProfileComponent implements OnInit {
   uid: any
   userInfo: any
 
-
+  //variables para conocer rol del usuario
   isStudent: boolean
   isTeacher: boolean
   isAdmin: boolean
-  data: any
 
+  //contadores para saber las publicaciones (posts) del usuario
   pbcount: number = 0
   prcount: number = 0;
   allcount: number = 0
@@ -66,6 +66,9 @@ export class ViewProfileComponent implements OnInit {
           if (this.isAuthenticated) {
             this.acrud.getProfile().subscribe(d => {
               let x = this.acrud.seprate(d)
+              this.isStudent = x[0].isStudent
+              this.isTeacher = x[0].isTeacher
+              this.isAdmin = x[0].isAdmin
               this.myuname = x[0].uname
               if (this.myuname == this.unameParam) {
                 this.ismyself = true;

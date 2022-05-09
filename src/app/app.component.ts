@@ -23,6 +23,11 @@ export class AppComponent implements OnInit {
   isemailverfied: boolean
 
   isloading: boolean = false
+
+  //variables para saber el rol del usuario
+  isStudent: boolean = false
+  isTeacher: boolean = false
+
   constructor(private authService: AuthService, private acrud: ACrudService, private router: Router) {
     this.acrud.username.subscribe(d => {
       this.username = d
@@ -58,10 +63,9 @@ export class AppComponent implements OnInit {
     this.authService.isLoggedIn1()
     this.userSub = this.authService.user.subscribe((user: any) => {
       this.isloading = false
-
+      // console.log(user)
       if (user) {
         this.isemailverfied = user.emailVerified
-
       }
       this.isAuthenticated = !!user;
       console.log(!user);
@@ -71,12 +75,16 @@ export class AppComponent implements OnInit {
       if (this.isAuthenticated) {
         this.acrud.getProfileFromUid(user.uid).subscribe(
           d => {
+            // console.log(d)
             let x2: {} = {}
             let x = this.acrud.seprate(d)
             this.ProfieData = x[0]
+            console.log(this.ProfieData)
             if (this.ProfieData) {
               this.isprofileSet = this.ProfieData.isProfileSet
               this.username = this.ProfieData.uname
+              this.isStudent = x[0].isStudent
+              this.isTeacher = x[0].isTeacher
             }
           }
         )

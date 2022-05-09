@@ -1,18 +1,19 @@
 <div class="row">
-    <div class="col-md-3 col-sm-12">
+    <!-- <div class="col-md-3 col-sm-12">
         <div class="list-group">
-            <a class="list-group-item" [ngClass]="{ active: isAll == true }" [routerLink]="['/myposts', type[0]]" (click)="getAllPosts()">All Posts </a>
+            <a class="list-group-item" [ngClass]="{ active: isAll == true }" [routerLink]="['/myposts', type[0]]" (click)="getAllPosts()">Mis publicaciones </a>
 
             <a class="list-group-item" [ngClass]="{ active: isPublic == true }" [routerLink]="['/myposts', type[1]]" (click)="getPublicPosts()">Public Posts</a>
 
             <a class="list-group-item" [ngClass]="{ active: isPrivate == true }" [routerLink]="['/myposts', type[2]]" (click)="getPriavtePosts()">Private Posts</a>
         </div>
-    </div>
+    </div> -->
 
-    <div class="col-md-7 col-sm-12 col-xs-12 post-cards">
+    <!-- <div class="col-md-7 col-sm-12 col-xs-12 post-cards"> -->
+    <div class="container">
+        <div class="row">
+        <div class="col">
         <div *ngIf="isAll && allpost?.length>0;else loading">
-
-
             <div class="card row" *ngFor="let i of allpost  ; let c = index">
                 <a [routerLink]="[c]">
                     <div class="col-md-4 col-xs-12 img-col col-md-push-8">
@@ -36,8 +37,10 @@
                 </a>
             </div>
         </div>
-
+        </div>
+        </div>
     </div>
+    <!-- </div> -->
 
 
 

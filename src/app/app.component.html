@@ -33,14 +33,17 @@
                 <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
                     <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/soporte">Soporte</a>
                 </li>                
-                <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied">
-                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/myposts">MyPosts</a>
+                <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied && isTeacher">
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/myposts">Mis Publicaciones</a>
+                </li>
+                <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied && isStudent">
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/mycourses">Mis Cursos</a>
                 </li>
                 <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && !isprofileSet ">
-                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;"routerLink='/myprofile'>CreateProfile</a>
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;"routerLink='/myprofile'>Crear Perfil</a>
                 </li>
                 <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isprofileSet && isemailverfied">
-                    <a class="nav-link" (click)="isMenuCollapsed = true"  style="text-decoration: none; color: black;" [routerLink]="['/myprofile', username]">MyProfile</a>
+                    <a class="nav-link" (click)="isMenuCollapsed = true"  style="text-decoration: none; color: black;" [routerLink]="['/myprofile', username]">Mi Perfil</a>
                 </li>
 
             </ul>
