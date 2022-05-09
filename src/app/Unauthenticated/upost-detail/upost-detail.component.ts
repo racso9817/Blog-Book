@@ -90,7 +90,7 @@ export class UPostDetailComponent implements OnInit {
           this.postype = params['type']
 
 
-          if (this.xyz[1] == "home") {
+          if (this.xyz[1] == "main") {
             this.getAllPost();
             this.showComment = true
           }
@@ -235,10 +235,7 @@ export class UPostDetailComponent implements OnInit {
       this.isFetching = false
       this.sortDesecendingByDate(x)
 
-
       this.unauthpost = x[this.id]
-
-
 
       if (this.unauthpost?.uid) {
 
@@ -255,7 +252,7 @@ export class UPostDetailComponent implements OnInit {
 
       }
       else {
-        this.router.navigate(["home"])
+        this.router.navigate(["main"])
       }
     },
       err => {
@@ -285,8 +282,6 @@ export class UPostDetailComponent implements OnInit {
             ...e.payload.doc.data() as {}
           } as UPost
 
-
-
         },
           err => {
             this.error = err;
@@ -296,7 +291,7 @@ export class UPostDetailComponent implements OnInit {
 
         this.unauthpost = this.unauthpostss[this.id];
         if (this.unauthpost == undefined) {
-          this.router.navigate(["home"])
+          this.router.navigate(["main"])
         }
         let CommentKeyPromise
         if (this.unauthpost?.uid) {
@@ -315,7 +310,7 @@ export class UPostDetailComponent implements OnInit {
 
         }
         else {
-          this.router.navigate(["home"])
+          this.router.navigate(["main"])
         }
       }
         , err => {
@@ -519,7 +514,7 @@ export class UPostDetailComponent implements OnInit {
     }
     else {
 
-      this.router.navigate(["/home"])
+      this.router.navigate(["/main"])
     }
 
   }
@@ -543,7 +538,7 @@ export class UPostDetailComponent implements OnInit {
           })
       }  
     else {
-      alert("Please Login or create your account to do Comment")
+      alert("Por favor, inicie sesión para comentar")
     }
   }
 

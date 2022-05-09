@@ -17,16 +17,16 @@
                     <img src="/assets/Eclipse-1s-200px.gif" style="width: 60px; height: 60px;">
                 </div>
                 <div class="col-xs-7" *ngIf="uploadPercent && !isimgloading">
-                    <a href="{{downloadURL}}">To view Image click here</a>
+                    <a href="{{downloadURL}}">Para ver tu imagen da click aquí</a>
                 </div>
 
             </div>
             <br>
             <div class=" col-md-8 col-sm-9 col-xs-12">
                 <div class="form-group">
-                    <label for="comment">Title:</label>
+                    <label for="comment">Nombre del Curso:</label>
                     <div class="input-style">
-                        <input placeholder="Title" class="form-control" formControlName="title">
+                        <input placeholder="Titulo" class="form-control" formControlName="title">
                     </div>
                     <ng-container *ngFor="let validation of validation_messages.title">
                         <div class="help-block has-error" *ngIf="exampleForm.get( 'title').hasError(validation.type) && (exampleForm.get( 'title').dirty || exampleForm.get( 'title').touched)">
@@ -34,17 +34,17 @@
                     </ng-container>
                 </div>
                 <div class="form-group">
-                    <label for="comment">Description:</label>
+                    <label for="comment">Descripción del curso:</label>
                     <textarea class="form-control" rows="5" id="comment" formControlName="desc"></textarea>
                     <ng-container *ngFor="let validation of validation_messages.desc">
                         <div class="help-block has-error" *ngIf="exampleForm.get( 'desc').hasError(validation.type) && (exampleForm.get( 'desc').dirty || exampleForm.get( 'desc').touched)">
                             {{validation.message}}</div>
                         <div class="help-block has-error" *ngIf="exampleForm.get( 'desc').hasError( 'minlength') && ( exampleForm.get( 'desc').touched)">
-                            Minimun 50 characters required in description</div>
+                            Mínimo 50 caracteres en la descripción</div>
                     </ng-container>
                 </div>
                 <div class="form-group">
-                    <label for="sel1">Category list:</label>
+                    <label for="sel1">Categoría de la clase:</label>
                     <select class="form-control" formControlName="category" #t (change)="onChange(t.value)">
                         <option *ngFor="let value of values">{{value}} </option>
                     </select>
@@ -62,12 +62,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="comment">Name:</label>
+                    <label for="comment">Ingresar su nombre:</label>
                     <div class="input-style">
-                        <input placeholder="Name" class="form-control" formControlName="name">
+                        <input placeholder="Nombre" class="form-control" formControlName="name">
                     </div>
                     <ng-container *ngFor="let validation of validation_messages.name">
                         <div class="help-block has-error" *ngIf="exampleForm.get( 'name').hasError(validation.type) && (exampleForm.get( 'name').dirty || exampleForm.get( 'name').touched)">
+                            {{validation.message}}</div>
+                    </ng-container>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Ingrese el precio del curso</label>
+                    <div class="input-style">
+                        <input placeholder="Precio del curso $5-$20" class="form-control" formControlName="precio">
+                    </div>
+                    <ng-container *ngFor="let validation of validation_messages.name">
+                        <div class="help-block has-error" *ngIf="exampleForm.get( 'precio').hasError(validation.type) && (exampleForm.get( 'precio').dirty || exampleForm.get( 'precio').touched)">
                             {{validation.message}}</div>
                     </ng-container>
                 </div>

@@ -27,8 +27,8 @@ import { StudentCoursesComponent } from './user/student-courses/student-courses.
 const routes: Routes = [
   // { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'home/:id', component: UPostDetailComponent ,pathMatch: 'full'},
-  { path: 'featured/:id', component: UPostDetailComponent ,pathMatch: 'full'},
+  { path: 'main/:id', component: UPostDetailComponent ,pathMatch: 'full'},
+  { path: 'main/:id', component: UPostDetailComponent ,pathMatch: 'full'},
   { path: 'myprofile', component: ProfileComponent ,pathMatch: 'full',canActivate: [AuthGuard]},
   
   { path: 'myprofile/:username', component: ViewProfileComponent ,pathMatch: 'full'},

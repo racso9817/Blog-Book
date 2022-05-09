@@ -26,82 +26,6 @@ export class MainViewComponent implements OnInit {
   featuredPostsorted: any[];
   commenData: any = []
   error: string;
-  
-  
-
-  // Variables de nuestro amigo de la india que ni pti que usa y que no
-  isAuthenticated = false;
-  private userSub: Subscription;
-  isloading: boolean
-  isprofileset
-  isimgloading: boolean
-  exampleForm: FormGroup;
-  values = ['Arte', 'Inglés', 'Música', 'Programación', 'Matemática', 'Química y Ciencia', 'Estudios Sociales', 'Lenguas', 'Otros..'];
-  selected = 'Arte'
-  imageSrc: string | ArrayBuffer;
-  downloadURL: string;
-  selectedFile: any;
-  uploadPercent: Observable<number>;
-  isloggedin: boolean = false;
-  privacy: string
-  username: any;
-  uid: any;
-  onChange(value) {
-
-    this.selected = value;
-
-  }
-
-  validation_messages = {
-    'title': [
-      { type: 'required', message: 'El título es requerido.' }
-    ],
-    'desc': [
-      { type: 'required', message: 'La descripción es requerida.' }
-    ],
-    'category': [
-      { type: 'required', message: 'La Categoría es requerida.' },
-    ],
-    'name': [
-      { type: 'required', message: 'Nombre es requerido.' },
-    ],
-    'precio': [
-      { type: 'required', message: 'Precio es requerido.' },
-    ]
-  };
-
-
-  // funcion para detectar los archivos? supongo, me dueles pana indio
-
-  detectFiles(event) {
-    this.isimgloading = true
-    this.selectedFile = event.target.files[0];
-    if (this.selectedFile.type.split('/')[0] !== 'image') {
-      return alert('Pleas select an Image file');
-    }
-    this.firebaseService.getdata(this.selectedFile)
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = e => this.imageSrc = reader.result;
-      reader.readAsDataURL(file);
-
-    }
-    this.firebaseService.uploadFile()
-    this.uploadPercent = this.firebaseService.uploadPercent;
-    this.firebaseService.downloadurlchange.subscribe((data: string) => {
-      this.downloadURL = data
-
-      this.isimgloading = false
-    },
-      err => {
-        this.error = err
-        console.log(err.message)
-      })
-
-
-  }
-
 
   //para saber qué tipo de usuario es
   isTeacher: boolean
@@ -157,98 +81,7 @@ export class MainViewComponent implements OnInit {
     // Código para obtener los posts de los profesores
     this.getAllPost()
     this.getFeaturedPost()
-    console.log(this.getAllPost())
-    console.log(this.getFeaturedPost())
-
-    // Código para no se que chucha pero veamos si funciona
-    this.userSub = this.authService.user.subscribe(user => {
-      this.isAuthenticated = !!user;
-      let uid=user.uid
-      this.acrud.getProfileFromUid(uid).subscribe(data=>{
-        let profile=this.acrud.seprate(data)
-        this.isprofileset=profile[0].isProfileSet
-        if(!this.isprofileset){
-          this.router.navigate(['myprofile'])
-          this.acrud.showWarningForProfileSet()
-        }
-      })
-    })
-
-   // para el formulario
-    this.createForm();
-    if (this.isAuthenticated) {
-      this.getUidandUname()
-    }
   }
-
-
-   // Obtiene el uID y el uNAME del usuario
-
-   getUidandUname() {
-    this.isloading = true
-    this.acrud.getProfile().subscribe(d => {
-      let x = this.acrud.seprate(d)
-      this.isloading = false
-      this.username = x[0].uname
-      this.uid = x[0].id
-      this.acrud.sendUidandUname(this.username, this.uid)
-      this.firebaseService.sendUidandUname(this.username, this.uid)
-    },
-      err => {
-        this.error = err
-      })
-  }
-
-  //////
-
-
-  // El formulario
-  createForm() {
-    this.exampleForm = this.fb.group({
-      imgurl: ['', Validators.required],
-      title: ['', Validators.required],
-      desc: ['', [Validators.required, Validators.minLength(50)]],
-      category: [this.selected, Validators.required],
-      subcategory: ['  ', Validators.required],
-      name: ['', Validators.required],
-      precio: ['', Validators.required],
-      privacy: ["true"],
-
-    });
-  }
-
-  //////////////////////
-
-   // Funcion para subir el documento
-   onSubmit(value: UPost) {
-    if (!!this.isAuthenticated) {
-      if (this.exampleForm.value.privacy == "true") {
-        this.firebaseService.createUser(value)
-      }
-      this.acrud.createPost(value)
-      this.exampleForm.reset();
-      this.isloading = true
-    }
-    else {
-      this.firebaseService.createUser(value)
-        .then(
-          res => {
-            this.exampleForm.reset();
-            this.router.navigate(['']);
-          })
-        .catch(err => {
-          this.error = err
-          console.log("err" + err)
-        })
-    }
-  }
-
-   // para que se borre todo al cerrar sesión
-   ngOnDestroy() {
-    this.userSub.unsubscribe();
-  }
-
-  ///////////////////////////////////////////////////////////////
 
   allDocumentsUploadedVerification(){  //verificar si el profesor completó todos los documentos requeridos
     if(this.isTeacher && this.cedulaUploaded && this.tituloUploaded){
@@ -259,7 +92,6 @@ export class MainViewComponent implements OnInit {
     }
   }
 
-
   // Parte del código para ESTUDIANTE, BARRA DE BUSQUEDA Y TODA LA DEMAS PIJA
   
   getAllPost() {
@@ -268,9 +100,9 @@ export class MainViewComponent implements OnInit {
       this.isFetching = false
       this.data = x
       this.sortDesecending(this.data)
-
     })
   }
+  
   sortDesecending(data) {
     this.sorted = data.sort((a: any, b: any) =>
       <any>new Date(b.created_date) - <any>new Date(a.created_date)

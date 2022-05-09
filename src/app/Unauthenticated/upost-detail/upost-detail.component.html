@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-3 col-sm-12 post-exist" *ngIf="isAuthenticated && xyz[1]!=='home' && xyz[1]!== 'myprofile'">
+    <div class="col-md-3 col-sm-12 post-exist" *ngIf="isAuthenticated && xyz[1]!=='main' && xyz[1]!== 'myprofile'">
         <div class="list-group">
             <a class="list-group-item" routerLink="/create-post">Add new Post</a>
 
@@ -34,7 +34,7 @@
 
     <div class="container container-postdetil col-md-9 col-sm-12">
 
-        <div class="row" *ngIf="xyz[1]=='home' &&
+        <div class="row" *ngIf="xyz[1]=='main' &&
       isUnauth &&
       unauthpost && !isFetching;else loading
     ">

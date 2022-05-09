@@ -32,7 +32,10 @@
                 </li>
                 <li class="nav-item"  routerLinkActive="active" *ngIf="!isAuthenticated">                    
                     <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/soporte">Soporte</a>
-                </li>                
+                </li>   
+                <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied && isTeacher">
+                    <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/create-post">Crear Publicación</a>
+                </li>             
                 <li class="nav-item"  routerLinkActive="active" *ngIf="isAuthenticated && isemailverfied && isTeacher">
                     <a class="nav-link"  (click)="isMenuCollapsed = true" style="text-decoration: none; color: black;" routerLink="/myposts">Mis Publicaciones</a>
                 </li>
