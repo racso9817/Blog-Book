@@ -16,3 +16,4 @@
 - Agregar la barra de busqueda con su predeterminado filtro para buscar los cursos.
 - Desarrollar forma para que los estudiantes se puedan suscribir a un curso.
 - Agregar para revisar manualmente documentos subidos por el profesor.
+- En el formulario de profesor, quitar para que este ponga su nombre y simplemente sacarlo del usuario.
