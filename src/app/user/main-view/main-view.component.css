@@ -1,9 +1,17 @@
-.card.row {
-    border-radius: 6px;
-    min-height: 180px;
-    position: relative;
+
+.card{
+    margin-bottom: 2rem;
+    width: 100%;
+    width: 50vw;
+    height: 100%;
+    
 }
 
+
+img {
+    width: 25vw;
+    height: 33vh;
+}
 .col-md-8.col-xs-7.main-content {
     position: unset;
 }
@@ -12,32 +20,22 @@
     padding: 0;
 }
 
-.author-date {
-    margin-top: 10px
-}
+.author-date{
 
+    position:absolute;
+    bottom:0;
+    right:0;
+}
 .author-date>p {
     color: gray;
-    margin: 0
+    
 }
 
-.author-date.col-md-6.col-xs-12 {
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 5px
-}
 
 .card.row>a {
     color: #000;
 }
 
-.img-col {
-    padding: 0;
-}
-
-.img-col img {
-    min-height: 180px;
-}
 
 h3.title {
     margin-top: 7px;
@@ -146,18 +144,7 @@ div {
     }
 }
 
-.card-featured {
-    position: relative;
-    padding-bottom: 15px;
-}
 
-.card-featured .title.main-content {
-    padding-left: 15px;
-}
-
-.card-featured .author-date {
-    position: relative;
-}
 
 .likecomment {
     float: right;

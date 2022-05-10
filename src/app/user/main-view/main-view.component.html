@@ -4,18 +4,18 @@
     <div class="row">
         <div class="col-md-5 col-xs-12 col-md-push-7">
 
-            <div class="search-hero search-input-wrapper fadeInUp hidden-md hidden-lg">
+            <!-- <div class="search-hero search-input-wrapper fadeInUp hidden-md hidden-lg">
                 <label for="search"></label>
                 <input class="form-control" type="text" name="search" id="search" [(ngModel)]="searchText" autocomplete="off" placeholder="   Search by Title or Author name">
                 <div class="search-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg></div>
-            </div>
+            </div> -->
 
             <div *ngIf="(featuredPost  | filter:searchText ) as result">
-                <h3 class="Featured">Featured Posts</h3>
-                <div *ngIf="!isFetching && result?.length>0">
+                <!-- <h3 class="Featured">Featured Posts</h3> -->
+                <!-- <div *ngIf="!isFetching && result?.length>0">
 
 
 
@@ -40,11 +40,11 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="text-left no-result">
+                <!-- <div class="text-left no-result">
                     <h4 *ngIf="result.length === 0">No Results Found</h4>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -59,29 +59,27 @@
                     </svg></div>
             </div>
             <div *ngIf="(sorted | filter:searchText) as result ">
-                <h3 class="Featured hidden-md hidden-lg">Latest Posts</h3>
+                <h3 class="Featured hidden-md hidden-lg">Cursos</h3>
                 <div *ngIf="!isFetching && result?.length>0">
-                    <div class="card row" *ngFor="let i of result;let c= index ">
+                    <div class="card flex-row" *ngFor="let i of result;let c= index "><img src="{{ i.imgurl }} " alt="Avatar " class="img-responsive card-img-left" alt="img" />
                         <a [routerLink]="[c]">
-
-                            <div class="col-md-4 col-xs-12 img-col col-md-push-8">
-                                <img src="{{ i.imgurl }} " alt="Avatar " style="width: 100%;" class="img-responsive" alt="img" />
-                            </div>
-                            <div class="col-md-8 col-xs-12 main-content col-md-pull-4">
-                                <h2 class="title">
+                             
+                             <div class="card-body">
+                                <h4 class="card-title h5 h4-sm">
                                     {{i.title }}
-                                </h2>
+                                </h4>
 
-                                <p class="desc desc1" [innerHTML]="i.desc| noSanitize"></p>
-                            </div>
-                            <div class="author-date col-md-6 col-xs-12">
+                              <p class="card-text" style="text-align: justify;"   [innerHTML]="i.desc| noSanitize"></p>
+
+                              <div class="author-date card-text">
                                 <p class="author-name">
-                                    By : {{i.name }}
-                                </p>
-                                <p class="date">
-                                    On : {{i.created_date | date }}
+                                  Precio en $: {{i.precio}}  Por: {{i.name }} &nbsp;Creado en: {{i.created_date | date }} 
                                 </p>
                             </div>
+
+                            
+                            </div>
+                           
                         </a>
                     
                 </div>
