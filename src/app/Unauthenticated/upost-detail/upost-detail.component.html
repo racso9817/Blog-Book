@@ -201,11 +201,11 @@
                     </p>
                 </div>
 
-                <img src="{{ i[id]?.imgurl }} " class="img-responsive post-img" alt="img" />
+                <img src="{{ i[id]?.imgurl }} " class="img-responsive post-img"  style="width:  95%;height:80%;"        alt="img" />
                 <figcaption>{{ i[id]?.title }}</figcaption>
                 <!-- <p class="desc ">{{ i[id]?.desc }}</p> -->
 
-                <p class="desc " [innerHTML]="i[id]?.desc| noSanitize"></p>
+                <p class="desc desc1" [innerHTML]="i[id]?.desc| noSanitize"></p>
 
 
             </div>

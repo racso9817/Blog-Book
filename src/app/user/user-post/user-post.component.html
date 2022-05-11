@@ -14,25 +14,21 @@
         <div class="row">
         <div class="col">
         <div *ngIf="isAll && allpost?.length>0;else loading">
-            <div class="card row" *ngFor="let i of allpost  ; let c = index">
+            <div class="card flex-row" *ngFor="let i of allpost  ; let c = index"> <img src="{{ i.imgurl }} " alt="Avatar "  class="img-responsive card-image-left" alt="img" />
                 <a [routerLink]="[c]">
-                    <div class="col-md-4 col-xs-12 img-col col-md-push-8">
-                        <img src="{{ i.imgurl }} " alt="Avatar " style="width: 100%;" class="img-responsive" alt="img" />
-                    </div>
-                    <div class="col-md-8 col-xs-12 main-content col-md-pull-4">
-                        <h2 class="title">
-                            {{ i.title }}
-                        </h2>
 
-                        <p class="desc desc1" [innerHTML]="i.desc| noSanitize"></p>
-                    </div>
-                    <div class="author-date col-md-6 col-xs-12">
+                    <div class="card-body">
+                        <h4 class="card-title h5 h4-sm">
+                            {{ i.title }}
+                      </h4>
+                      <p class="card-text" style="text-align: justify;" [innerHTML]="i.desc| noSanitize"></p>
+
+                      <div class="author-date card-text">
                         <p class="author-name">
-                            By : {{ i.name }}
+                            Precio en $: {{i.precio}}  Por: {{ i.name }} &nbsp; Creado en: {{ i.created_date | date }}                           
                         </p>
-                        <p class="date">
-                            On : {{ i.created_date | date }}
-                        </p>
+                    </div>
+
                     </div>
                 </a>
             </div>
