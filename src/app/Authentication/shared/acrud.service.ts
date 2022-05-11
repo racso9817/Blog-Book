@@ -9,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Profile, User1 } from './user.model';
 import { ToastrService } from 'ngx-toastr';
+import { visitValue } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,24 @@ export class ACrudService {
   postdata = {}
   uid: string
 
+  publicationData: {
+    title: string;
+    nameToSearch: string;
+    desc: string;
+    category: string;
+    subcategory: string;
+    name: string;
+    precio: string;
+    created_date?: Date;
+    imgurl: Observable<string>;
+    privacy: string;
+    uid: string;
+    uname: string;
+    postid: string;
+  }
+
+  contador: number = 0;
+
   d1 = []
   d2 = []
   d3 = []
@@ -25,6 +44,8 @@ export class ACrudService {
 
   url: string
   post_id
+
+  postid: string
 
   list: any
   OthersUid = new BehaviorSubject<string>(null);
@@ -37,10 +58,10 @@ export class ACrudService {
   PostDataForLikedByUser = new BehaviorSubject<any>(null);
   db_key: string;
   firestorekey: string;
-  x: Observable<{ title: string; desc: string; created_date?: Date; imgurl: string; category: string; subcategory?: string; name: string; precio: string; privacy: string; id: string; }[]>;
+  x: Observable<{ title: string; desc: string; created_date?: Date; imgurl: string; category: string; subcategory?: string; name: string; precio: string; privacy: string; id: string; postid:string}[]>;
   ProfieData: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date };
   ProfileDataStudent: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date; tutorEmail:string };
-  ProfileDataTeacher: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; birthDate:Date };
+  ProfileDataTeacher: { id: string; uname: string; desc: string; email: string; name: string; created_date?: Date; imgurl: Observable<string>; imgCedula: Observable<string>; imgTitulo: Observable<string>;isProfileSet: boolean; isStudent: boolean; isTeacher:boolean; isAdmin:boolean; allDocumentsUploaded:boolean; habilitado:boolean;birthDate:Date };
   editedProfileData: { id: string; uname: string; desc: string; email: string; name: string; imgurl: Observable<string>; created_date?: Date; isProfileSet: boolean; };
   uname: any;
   id: any;
@@ -156,10 +177,14 @@ export class ACrudService {
       name: value.name,
       created_date: this.ucrud.currentDate,
       imgurl: this.ucrud.downloadURL,
+      imgCedula: this.ucrud.cedulaURL,
+      imgTitulo: this.ucrud.tituloURL,
       isProfileSet: true,
       isStudent: false,
       isTeacher:true,
       isAdmin: false,
+      allDocumentsUploaded:false,
+      habilitado:false,
       birthDate: value.birthDate,
     }
     this.createPublicProfile(this.ProfileDataTeacher, this.ProfileDataTeacher.uname)
@@ -197,7 +222,7 @@ export class ACrudService {
 
   //Utilizar funcion para crear una publicacion (ej: cursos)
   createPost(value: UPost) {
-    this.postdata = {
+    this.publicationData = {
       title: value.title,
       nameToSearch: value.title.toLowerCase(),
       desc: value.desc,
@@ -210,14 +235,15 @@ export class ACrudService {
       privacy: value.privacy,
       uid: this.id,
       uname: this.uname,
-
+      postid: value.title.toLocaleLowerCase() +this.ucrud.currentDate + this.uname //+ '_' + this.contador,
     }
+    //this.contador += 1 
     if (value.privacy == "true") {
       this.getUid().then((d: any) => {
         this.uid = d
         this.http.post(
           `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/public.json`,
-          this.postdata
+          this.publicationData
         ).subscribe(responseData => {
             this.router.navigate(['']);
             this.showSuccess();
@@ -227,7 +253,7 @@ export class ACrudService {
     else {
       this.http.post(
         `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post/${this.uid}/private.json`,
-        this.postdata
+        this.publicationData
       )
         .subscribe(responseData => {
           this.router.navigate(['']);
@@ -824,33 +850,22 @@ export class ACrudService {
       this.http.get(
         `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post.json`).subscribe(d => {
           let x = this.seprate(d)
-
           let z = []
           for (let i in x) {
-
             let featured = x[i].public
-
             z = z.concat(this.seprate(featured))
-
             this.featuredPost = z
             let s = []
             for (let a in this.featuredPost) {
-
               if (this.featuredPost[a].likestatus?.count > 10) {
                 s = s.concat(this.featuredPost[a])
                 this.featuredPostsorted = s
               }
-
             }
           }
           resolve(this.featuredPostsorted)
-
-
         })
-
     })
-
-
   }
 
   getAllPost() {
@@ -858,16 +873,12 @@ export class ACrudService {
       this.http.get(
         `https://profedirect-bbcb8-default-rtdb.firebaseio.com/post.json`).subscribe(d => {
           let x = this.seprate(d)
-
           let z = []
           for (let i in x) {
-
             let featured = x[i].public
-
             z = z.concat(this.seprate(featured))
           }
           resolve(z)
-
         })
     })
   }

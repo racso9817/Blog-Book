@@ -101,18 +101,14 @@
 
         </div>
     </div> 
-
-
-
-
 </div>
 <div *ngIf="isTeacher">
     {{message}}
     <!-- Si el profesor no ha subido todos los documentos requeridos -->
-    <!-- <div *ngIf="!allDocumentsUploaded">
+    <div *ngIf="!allDocumentsUploaded">
         Debe ingresar todos los documentos requeridos
         <a routerLink="/subirDocumentos">aquí</a>
-    </div> -->
+    </div>
 
    
 </div>

@@ -14,9 +14,13 @@ export class CrudService {
 
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
+  cedulaURL: Observable<string>;
+  tituloURL: Observable<string>;
   selectedFile: any | null;
   currentDate = new Date();
   downloadurlchange: Subject<any> = new Subject<any>();
+  cedulaurlchange: Subject<any> = new Subject<any>();
+  titulourlchange: Subject<any> = new Subject<any>();
   filepath: string
   uid: any;
   uname: any;
@@ -63,7 +67,7 @@ export class CrudService {
       name: value.name,
       precio: value.precio,
       created_date: this.currentDate,
-      imgurl: this.downloadURL,
+      imgurl: this.downloadURL,      
       uid: this.uid,
       uname: this.uname
     })
@@ -86,5 +90,25 @@ export class CrudService {
       })
     ).subscribe()
   }
+
+  uploadCedulaAndTitulo() {
+    const file = this.selectedFile;
+    this.filepath = "UauthUsers"
+    const filePath = `${this.filepath}/${this.uname}/cedulaYtitulo/${file.name}`;
+    const fileRef = this.afStorage.ref(filePath);
+    const task = this.afStorage.upload(filePath, file);
+    this.uploadPercent = task.percentageChanges();
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().toPromise().then((url) => {
+          this.cedulaURL = url;
+          this.tituloURL = url;
+          this.cedulaurlchange.next(this.cedulaURL)
+          this.titulourlchange.next(this.tituloURL)
+        }).catch(err => { console.log(err) });
+      })
+    ).subscribe()
+  }
+
 }
 

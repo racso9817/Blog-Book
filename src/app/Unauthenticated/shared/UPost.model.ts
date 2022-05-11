@@ -12,7 +12,7 @@ export class UPost {
     uid: string
     uname: string
     comment?: string
-
+    postid: string
 }
 
 
@@ -30,7 +30,6 @@ export class LikeUserDetail {
         uid: any
     }
 }
-
 
 export class Comments {
     comment: string;

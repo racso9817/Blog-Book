@@ -32,10 +32,10 @@ export class UCreatePostComponent implements OnInit {
   uid: any;
   error: any;
   onChange(value) {
-
     this.selected = value;
-
   }
+
+  postid: string
 
   validation_messages = {
     'title': [
@@ -88,8 +88,6 @@ export class UCreatePostComponent implements OnInit {
         this.error = err
         console.log(err.message)
       })
-
-
   }
 
   ngOnInit(): void {
@@ -111,8 +109,8 @@ export class UCreatePostComponent implements OnInit {
     if (this.isAuthenticated) {
       this.getUidandUname()
     }
-
   }
+
   getUidandUname() {
     this.isloading = true
     this.acrud.getProfile().subscribe(d => {
@@ -138,9 +136,9 @@ export class UCreatePostComponent implements OnInit {
       name: ['', Validators.required],
       precio: ['', Validators.required],
       privacy: ["true"],
-
     });
   }
+
   onSubmit(value: UPost) {
     if (!!this.isAuthenticated) {
       if (this.exampleForm.value.privacy == "true") {
@@ -163,6 +161,7 @@ export class UCreatePostComponent implements OnInit {
         })
     }
   }
+
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }

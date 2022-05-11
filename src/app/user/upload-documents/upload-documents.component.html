@@ -1,1 +1,21 @@
-<p>upload-documents works!</p>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <form class="create-form" [formGroup]="cedulaYtituloForm" novalidate (ngSubmit)="onSubmit(cedulaYtituloForm.value)">
+            <div class="col-md-4 col-sm-3 col-xs-12">
+                <b>Cédula:</b>
+                <input type="file" multiple (change)="detectFiles($event) " accept="image/x-png,image/gif,image/jpeg" class="form-control" formControlName="cedula">
+                <img alt="" id="cedulaimg" height="200" width="200" class="img-rounded" [src]="cedulaSrc || 'http://placehold.it/180'" alt="your image" />
+            </div>
+            <div class="col-md-4 col-sm-3 col-xs-12">
+                <b>Título:</b>
+                <input type="file" multiple (change)="detectFiles($event) " accept="image/x-png,image/gif,image/jpeg" class="form-control" formControlName="titulo">
+                <img alt="" id="tituloimg" height="200" width="200" class="img-rounded" [src]="tituloSrc || 'http://placehold.it/180'" alt="your image" />
+            </div>
+            <div class="row submit-button-container">
+                <div class="col-md-4">
+                    <button class="btn btn-primary submit-button" color="primary" type="submit" [disabled]="!cedulaYtituloForm.valid">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

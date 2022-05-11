@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
             let x2: {} = {}
             let x = this.acrud.seprate(d)
             this.ProfieData = x[0]
-            console.log(this.ProfieData)
+            // console.log(this.ProfieData)
             if (this.ProfieData) {
               this.isprofileSet = this.ProfieData.isProfileSet
               this.username = this.ProfieData.uname
