@@ -152,7 +152,7 @@ export class UPostDetailComponent implements OnInit {
   getPostFromProfile(uname) {
     this.acrud.getPublicProfile(uname).subscribe(d => {
       let x = this.acrud.seprate(d)
-      let y = x[0].id
+      let y = x[0].id   
       this.getPublicPostsFromProfileId(y)
       this.acrud.getPublicProfile(uname).subscribe(
         d => {
@@ -162,6 +162,7 @@ export class UPostDetailComponent implements OnInit {
       )
     })
   }
+
 
   getPublicPostsFromProfileId(profileid) {
     this.isPublicPostOfSingleUser = false
@@ -176,6 +177,7 @@ export class UPostDetailComponent implements OnInit {
       this.post_userid = this.publicpostOfSingleUser.uid
       this.getComment(this.publicpostOfSingleUser.uid, this.publicpostOfSingleUser.title, this.publicpostOfSingleUser.desc)
       this.acrud.getPostDetailForLike(this.post_userid, this.posttitle, this.postdesc)
+     
     })
   }
 
@@ -205,6 +207,7 @@ export class UPostDetailComponent implements OnInit {
       this.isFetching = false
       this.sortDesecendingByDate(x)
       this.unauthpost = x[this.id]
+      console.log(this.unauthpost)
       if (this.unauthpost?.uid) {
         this.post_userid = this.unauthpost?.uid
         this.posttitle = this.unauthpost?.title
@@ -213,6 +216,8 @@ export class UPostDetailComponent implements OnInit {
         this.postDate = this.unauthpost.created_date
         this.acrud.getPostDetailForLike(this.post_userid, this.posttitle, this.postdesc)
         this.getComment(this.post_userid, this.unauthpost.title, this.unauthpost.desc)
+        console.log(this.unauthpost)
+        console.log(this.posttitle)
 
       }
       else {
@@ -473,7 +478,11 @@ export class UPostDetailComponent implements OnInit {
 
   //manejar lo que debe ocurrir si el alumno decide suscribirse a un curso
   onSubscription() {
-    
+    this.isUnauth = true
+    this.isFetching = true;
+    this.acrud.getAllPost()
+    console.log(this.unauthpost)
+    console.log(this.unauthpost.postid)
   }
 
 
